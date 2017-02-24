@@ -23,6 +23,7 @@ private:
     kvs::ScreenBase* m_screen; ///< pointer to the screen
     kvs::OpenGL::Render2D m_render_2d; ///< 2D rendering
     kvs::TextEngine* m_text_engine; ///< pointer to the text engine
+
     int m_margin; ///< margin
     kvs::RGBAColor m_background_color; ///< background color
     kvs::RGBAColor m_background_border_color; ///< background border color

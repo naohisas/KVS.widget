@@ -1,13 +1,14 @@
-#include <kvs/glut/Application>
-#include <kvs/glut/Screen>
-#include "Label.h"
+#include "Application.h"
+#include "Screen.h"
 #include <kvs/glut/GLUT>
-
+#include "Label.h"
+#include "TextEngine.h"
+#include "glutTextEngine.h"
 
 int main( int argc, char** argv )
 {
-    kvs::glut::Application app( argc, argv );
-    kvs::glut::Screen screen( &app );
+    Application app( argc, argv );
+    Screen screen( &app );
     screen.show();
 
     kvs::Label label( &screen );

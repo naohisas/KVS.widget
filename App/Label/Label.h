@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <kvs/glut/Screen>
+#include <kvs/ScreenBase>
 #include "WidgetBase.h"
 
 

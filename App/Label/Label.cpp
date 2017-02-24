@@ -119,7 +119,7 @@ void Label::paintEvent()
     for ( size_t line = 0; line < m_text.size(); line++ )
     {
         const kvs::Vec2i p( x, y + character_height * ( line + 1 ) );
-        BaseClass::textEngine().draw( p, m_text[line] );
+        BaseClass::textEngine().draw( p, m_text[line], BaseClass::screen() );
     }
 
     BaseClass::render2D().end();
