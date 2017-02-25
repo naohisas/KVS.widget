@@ -33,9 +33,9 @@ public:
     const int width( const char c ) const;
     const int width( const std::string& text ) const;
     const int height() const;
-    void draw( const kvs::Vec2i& p, const std::string& text, const kvs::ScreenBase* screen ) const;
-    void draw( const kvs::Vec2& p, const std::string& text, const kvs::ScreenBase* screen ) const;
-    void draw( const kvs::Vec3& p, const std::string& text, const kvs::ScreenBase* screen ) const;
+    void draw( const kvs::Vec2i& p, const std::string& text, kvs::ScreenBase* screen ) const;
+    void draw( const kvs::Vec2& p, const std::string& text, kvs::ScreenBase* screen ) const;
+    void draw( const kvs::Vec3& p, const std::string& text, kvs::ScreenBase* screen ) const;
 };
 
 } // end of namespace glut

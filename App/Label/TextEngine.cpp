@@ -13,15 +13,15 @@ TextEngine::~TextEngine()
 {
 }
 
-void TextEngine::draw( const kvs::Vec2i& p, const std::string& text, const kvs::ScreenBase* screen ) const
+void TextEngine::draw( const kvs::Vec2i& p, const std::string& text, kvs::ScreenBase* screen ) const
 {
 }
 
-void TextEngine::draw( const kvs::Vec2& p, const std::string& text, const kvs::ScreenBase* screen ) const
+void TextEngine::draw( const kvs::Vec2& p, const std::string& text, kvs::ScreenBase* screen ) const
 {
 }
 
-void TextEngine::draw( const kvs::Vec3& p, const std::string& text, const kvs::ScreenBase* screen ) const
+void TextEngine::draw( const kvs::Vec3& p, const std::string& text, kvs::ScreenBase* screen ) const
 {
 }
 
