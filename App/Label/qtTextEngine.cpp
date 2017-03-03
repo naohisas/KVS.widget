@@ -29,19 +29,19 @@ TextEngine::TextEngine( TextEngine* engine ):
 {
 }
 
-const int TextEngine::width( const char c ) const
+int TextEngine::width( const char c ) const
 {
     QFontMetrics metrics( m_font );
     return metrics.width( QChar( c ) );
 }
 
-const int TextEngine::width( const std::string& text ) const
+int TextEngine::width( const std::string& text ) const
 {
     QFontMetrics metrics( m_font );
     return metrics.width( QString::fromStdString( text ) );
 }
 
-const int TextEngine::height() const
+int TextEngine::height() const
 {
     QFontMetrics metrics( m_font );
     return metrics.height();
@@ -49,8 +49,6 @@ const int TextEngine::height() const
 
 void TextEngine::draw( const kvs::Vec2i& p, const std::string& text, kvs::ScreenBase* screen ) const
 {
-    std::cout << "qt::TextEngine::Draw" << std::endl;
-
     kvs::OpenGL::Color( this->color() );
     Screen* qt_screen = static_cast<Screen*>( screen );
     qt_screen->renderText( p.x(), p.y(), QString::fromStdString( text ), m_font );

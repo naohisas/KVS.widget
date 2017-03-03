@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <kvs/ScreenBase>
-#include "WidgetBase.h"
+#include <KVS.widget/Lib/WidgetBase.h>
 
 
 namespace kvs

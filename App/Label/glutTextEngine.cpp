@@ -23,12 +23,12 @@ TextEngine::TextEngine( TextEngine* engine ):
 {
 }
 
-const int TextEngine::width( const char c ) const
+int TextEngine::width( const char c ) const
 {
     return glutBitmapWidth( m_font, c );
 }
 
-const int TextEngine::width( const std::string& text ) const
+int TextEngine::width( const std::string& text ) const
 {
     int size = 0;
     char* line_head = const_cast<char*>( text.c_str() );
@@ -39,7 +39,7 @@ const int TextEngine::width( const std::string& text ) const
     return size;
 }
 
-const int TextEngine::height() const
+int TextEngine::height() const
 {
     if ( m_font == GLUT_BITMAP_8_BY_13        ) return 14;
     if ( m_font == GLUT_BITMAP_9_BY_15        ) return 16;
@@ -53,8 +53,6 @@ const int TextEngine::height() const
 
 void TextEngine::draw( const kvs::Vec2i& p, const std::string& text, kvs::ScreenBase* screen ) const
 {
-    std::cout << "glut::TextEngine::Draw" << std::endl;
-
     kvs::OpenGL::WithPushedAttrib attrib( GL_ALL_ATTRIB_BITS );
     attrib.disable( GL_TEXTURE_1D );
     attrib.disable( GL_TEXTURE_2D );

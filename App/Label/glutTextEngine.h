@@ -1,5 +1,5 @@
 #pragma once
-#include "TextEngine.h"
+#include <KVS.widget/Lib/TextEngine.h>
 #include <kvs/Vector2>
 #include <kvs/Vector3>
 #include <string>
@@ -30,9 +30,9 @@ public:
     void setFontToHelvatica18() { this->setFont( GLUT_BITMAP_HELVETICA_18 ); }
     void setFontToTimesRoman10() { this->setFont( GLUT_BITMAP_TIMES_ROMAN_10 ); }
     void setFontToTimesRoman24() { this->setFont( GLUT_BITMAP_TIMES_ROMAN_24 ); }
-    const int width( const char c ) const;
-    const int width( const std::string& text ) const;
-    const int height() const;
+    int width( const char c ) const;
+    int width( const std::string& text ) const;
+    int height() const;
     void draw( const kvs::Vec2i& p, const std::string& text, kvs::ScreenBase* screen ) const;
     void draw( const kvs::Vec2& p, const std::string& text, kvs::ScreenBase* screen ) const;
     void draw( const kvs::Vec3& p, const std::string& text, kvs::ScreenBase* screen ) const;

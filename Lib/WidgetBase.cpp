@@ -109,6 +109,7 @@ void WidgetBase::drawBackground()
     kvs::OpenGL::WithPushedAttrib attrib( GL_ALL_ATTRIB_BITS );
     attrib.disable( GL_TEXTURE_1D );
     attrib.disable( GL_TEXTURE_2D );
+    attrib.disable( GL_TEXTURE_3D );
     attrib.enable( GL_BLEND );
 
     kvs::OpenGL::SetBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
