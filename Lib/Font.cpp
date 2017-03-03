@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <kvs/File>
+#include <kvs/Matrix22>
 
 
 namespace
@@ -73,6 +74,14 @@ SearchPath search_path;
 
 class FontStash
 {
+public:
+    struct Metrics
+    {
+        float ascender;
+        float descender;
+        float lineh;
+    };
+
 private:
     FONScontext* m_context;
 
@@ -165,6 +174,13 @@ public:
         return glfonsRGBA( r, g, b, a );
     }
 
+    Metrics metrics() const
+    {
+        Metrics m;
+        fonsVertMetrics( m_context, &m.ascender, &m.descender, &m.lineh );
+        return m;
+    }
+
     float ascender() const
     {
         float v = 0.0f;
@@ -184,6 +200,11 @@ public:
         float v = 0.0f;
         fonsVertMetrics( m_context, NULL, NULL, &v );
         return v;
+    }
+
+    float textBounds( const kvs::Vec2& p, const std::string& text ) const
+    {
+        return fonsTextBounds( m_context, p.x(), p.y(), text.c_str(), NULL, NULL );
     }
 
     void clearState()
@@ -243,11 +264,70 @@ void Font::RemoveSearchPath()
 
 Font::Font()
 {
-    this->setFamilyToSansSerif();
-    this->setStyleToRegular();
+    this->setFamily( SansSerif );
+    this->setStyle( Regular );
     this->setSize( 18.0f );
     this->setColor( kvs::RGBColor::Black() );
+    this->setEnabledShadow( false );
+    this->setShadowColor( kvs::RGBColor::Black() );
+    this->setShadowSizeRatio( 1.0f );
+    this->setShadowDistance( 6.0f );
+    this->setShadowAngle( 45.0f );
+    this->setShadowBlur( 4.0f );
+    ::Stash.create( 512, 512, FONS_ZERO_TOPLEFT );
+}
 
+Font::Font( const Family& family, const float size )
+{
+    this->setFamily( family );
+    this->setStyle( Regular );
+    this->setSize( size );
+    this->setColor( kvs::RGBColor::Black() );
+    this->setEnabledShadow( false );
+    this->setShadowColor( kvs::RGBColor::Black() );
+    this->setShadowSizeRatio( 1.0f );
+    this->setShadowDistance( 6.0f );
+    this->setShadowAngle( 45.0f );
+    this->setShadowBlur( 4.0f );
+    ::Stash.create( 512, 512, FONS_ZERO_TOPLEFT );
+}
+
+Font::Font( const Family& family, const float size, const kvs::RGBAColor& color )
+{
+    this->setFamily( family );
+    this->setStyle( Regular );
+    this->setSize( size );
+    this->setColor( color );
+    this->setEnabledShadow( false );
+    this->setShadowColor( kvs::RGBColor::Black() );
+    this->setShadowSizeRatio( 1.0f );
+    this->setShadowDistance( 6.0f );
+    this->setShadowAngle( 45.0f );
+    this->setShadowBlur( 4.0f );
+    ::Stash.create( 512, 512, FONS_ZERO_TOPLEFT );
+}
+
+Font::Font( const Family& family, const Style& style, const float size )
+{
+    this->setFamily( family );
+    this->setStyle( style );
+    this->setSize( size );
+    this->setColor( kvs::RGBColor::Black() );
+    this->setEnabledShadow( false );
+    this->setShadowColor( kvs::RGBColor::Black() );
+    this->setShadowSizeRatio( 1.0f );
+    this->setShadowDistance( 6.0f );
+    this->setShadowAngle( 45.0f );
+    this->setShadowBlur( 4.0f );
+    ::Stash.create( 512, 512, FONS_ZERO_TOPLEFT );
+}
+
+Font::Font( const Family& family, const Style& style, const float size, const kvs::RGBAColor& color )
+{
+    this->setFamily( family );
+    this->setStyle( style );
+    this->setSize( size );
+    this->setColor( color );
     ::Stash.create( 512, 512, FONS_ZERO_TOPLEFT );
 }
 
@@ -255,27 +335,47 @@ Font::~Font()
 {
 }
 
-float Font::lineHeight()
+float Font::width( const std::string& text ) const
 {
-    const std::string name = ::FamilyName[m_family] + ::StyleName[m_style];
-    const int font_id = ::Stash.fontID( name );
-    ::Stash.setFont( font_id );
-    ::Stash.setSize( 18.0f );
-    return ::Stash.lineHeight();
-}
-
-void Font::draw( const kvs::Vec2& p, const std::string& text )
-{
-    ::Stash.clearState();
-
-    const std::string name = ::FamilyName[m_family] + ::StyleName[m_style];
+    const std::string name = ::FamilyName[this->family()] + ::StyleName[this->style()];
     const int font_id = ::Stash.fontID( name );
     ::Stash.setFont( font_id );
     ::Stash.setSize( this->size() );
-    ::Stash.setColor( ::Stash.colorID( this->color() ) );
+    return ::Stash.textBounds( kvs::Vec2( 0.0f, 0.0f ), text );
+}
 
-    const float descender = ::Stash.descender();
-    ::Stash.draw( p + kvs::Vec2( 0, descender ), text );
+float Font::height() const
+{
+    const std::string name = ::FamilyName[this->family()] + ::StyleName[this->style()];
+    const int font_id = ::Stash.fontID( name );
+    ::Stash.setFont( font_id );
+    ::Stash.setSize( this->size() );
+    return ::Stash.lineHeight();
+}
+
+void Font::draw( const kvs::Vec2& p, const std::string& text ) const
+{
+    ::Stash.clearState();
+
+    const std::string name = ::FamilyName[this->family()] + ::StyleName[this->style()];
+    const int font_id = ::Stash.fontID( name );
+    ::Stash.setFont( font_id );
+
+    const kvs::Vec2 d( 0.0f, ::Stash.descender() );
+    const kvs::Mat2 r( kvs::Mat2::Rotation( this->shadowAngle() ) );
+    const kvs::Vec2 v( this->shadowDistance(), 0.0f );
+    if ( this->isEnabledShadow() )
+    {
+        ::Stash.setBlur( this->shadowBlur() );
+        ::Stash.setColor( ::Stash.colorID( this->shadowColor() ) );
+        ::Stash.setSize( this->size() * this->shadowSizeRatio() );
+        ::Stash.draw( p + d + r * v, text );
+    }
+
+    ::Stash.setBlur( 0.0f );
+    ::Stash.setColor( ::Stash.colorID( this->color() ) );
+    ::Stash.setSize( this->size() );
+    ::Stash.draw( p + d, text );
 }
 
 } // end of namespace kvs

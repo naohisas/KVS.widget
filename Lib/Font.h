@@ -32,6 +32,12 @@ private:
     Style m_style;
     float m_size;
     kvs::RGBAColor m_color;
+    bool m_enabled_shadow;
+    kvs::RGBAColor m_shadow_color;
+    float m_shadow_size_ratio;
+    float m_shadow_distance;
+    float m_shadow_angle; // deg
+    float m_shadow_blur;
 
 public:
     static void AddSearchPath( const std::string& path );
@@ -41,12 +47,22 @@ public:
 
 public:
     Font();
+    Font( const Family& family, const float size );
+    Font( const Family& family, const float size, const kvs::RGBAColor& color );
+    Font( const Family& family, const Style& style, const float size );
+    Font( const Family& family, const Style& style, const float size, const kvs::RGBAColor& color );
     virtual ~Font();
 
     Family family() const { return m_family; }
     Style style() const { return m_style; }
     float size() const { return m_size; }
     const kvs::RGBAColor& color() const { return m_color; }
+    bool isEnabledShadow() const { return m_enabled_shadow; }
+    const kvs::RGBAColor& shadowColor() const { return m_shadow_color; }
+    float shadowSizeRatio() const { return m_shadow_size_ratio; }
+    float shadowDistance() const { return m_shadow_distance; }
+    float shadowAngle() const { return m_shadow_angle; }
+    float shadowBlur() const { return m_shadow_blur; }
 
     void setFamily( const Family family ) { m_family = family; }
     void setFamilyToSansSerif() { this->setFamily( SansSerif ); }
@@ -58,9 +74,16 @@ public:
     void setStyleToBoldItalic() { this->setStyle( BoldItalic ); }
     void setSize( const float size ) { m_size = size; }
     void setColor( const kvs::RGBAColor& color ) { m_color = color; }
+    void setEnabledShadow( const bool enabled ) { m_enabled_shadow = enabled; }
+    void setShadowColor( const kvs::RGBAColor& color ) { m_shadow_color = color; }
+    void setShadowSizeRatio( const float ratio ) { m_shadow_size_ratio = ratio; }
+    void setShadowDistance( const float distance ) { m_shadow_distance = distance; }
+    void setShadowAngle( const float angle ) { m_shadow_angle = angle; }
+    void setShadowBlur( const float blur ) { m_shadow_blur = blur; }
 
-    float lineHeight();
-    void draw( const kvs::Vec2& p, const std::string& text );
+    float width( const std::string& text ) const;
+    float height() const;
+    void draw( const kvs::Vec2& p, const std::string& text ) const;
 };
 
 } // end of namespace kvs

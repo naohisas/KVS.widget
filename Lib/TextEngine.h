@@ -14,17 +14,19 @@ namespace kvs
 class TextEngine
 {
 private:
-    kvs::RGBColor m_color;
-    mutable kvs::Font m_font;
+    kvs::Font m_font;
 
 public:
     TextEngine();
+    TextEngine( const kvs::Font& font );
     TextEngine( TextEngine* engine );
     virtual ~TextEngine();
 
-    const kvs::RGBColor& color() const { return m_color; }
-    virtual int width( const char c ) const { return 0; }
-    virtual int width( const std::string& text ) const { return 0; }
+    void setFont( const kvs::Font& font ) { m_font = font; }
+    const kvs::RGBAColor& color() const { return m_font.color(); }
+
+    virtual int width( const char c ) const;
+    virtual int width( const std::string& text ) const;
     virtual int height() const;
     virtual void draw( const kvs::Vec2i& p, const std::string& text, kvs::ScreenBase* screen ) const;
     virtual void draw( const kvs::Vec2& p, const std::string& text, kvs::ScreenBase* screen ) const;

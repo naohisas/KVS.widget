@@ -16,8 +16,24 @@ int main( int argc, char** argv )
     Screen screen( &app );
     screen.show();
 
+//    screen.setBackgroundColor( kvs::RGBColor( 100, 100, 100 ), kvs::RGBColor( 200, 200, 200 ) );
+    screen.setBackgroundColor( kvs::RGBColor( 200, 200, 200 ), kvs::RGBColor( 100, 100, 100 ) );
+//    screen.setBackgroundColor( kvs::RGBColor( 192, 202, 209 ), kvs::RGBColor( 212, 221, 229 ) );
+//    screen.setBackgroundColor( kvs::RGBColor::Black() );
+//    screen.setBackgroundColor( kvs::RGBColor( 212, 221, 229 ), kvs::RGBColor( 150, 150, 150 ) );
+
+
     // KVS
-//    kvs::TextEngine engine;
+    kvs::Font font( kvs::Font( kvs::Font::SansSerif, kvs::Font::Bold, 22 ) );
+    font.setColor( kvs::RGBColor::White() );
+    font.setEnabledShadow( true );
+    font.setShadowAngle( 45.0f );
+    font.setShadowDistance( 2.0f );
+//    font.setShadowColor( kvs::RGBColor( 120, 120, 120 ) );
+//    font.setShadowColor( kvs::RGBColor::White() );
+    font.setShadowSizeRatio( 1.0f );
+    font.setShadowBlur( 6.0f );
+    kvs::TextEngine engine( font );
     // GLUT
 //    kvs::glut::TextEngine engine( GLUT_BITMAP_8_BY_13 );
 //    kvs::glut::TextEngine engine( GLUT_BITMAP_9_BY_15 );
@@ -28,7 +44,7 @@ int main( int argc, char** argv )
 //    kvs::glut::TextEngine engine( GLUT_BITMAP_TIMES_ROMAN_24 );
     // Qt
 //    kvs::qt::TextEngine engine( QFont( "Monospace", 14 ) );
-    kvs::qt::TextEngine engine( QFont( "Helvatica", 14 ) );
+//    kvs::qt::TextEngine engine( QFont( "Helvatica", 14 ) );
 //    kvs::qt::TextEngine engine( QFont( "Meiryo", 18 ) );
 
     kvs::Label label( &screen );

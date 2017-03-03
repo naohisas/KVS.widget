@@ -53,19 +53,7 @@ int TextEngine::height() const
 
 void TextEngine::draw( const kvs::Vec2i& p, const std::string& text, kvs::ScreenBase* screen ) const
 {
-    kvs::OpenGL::WithPushedAttrib attrib( GL_ALL_ATTRIB_BITS );
-    attrib.disable( GL_TEXTURE_1D );
-    attrib.disable( GL_TEXTURE_2D );
-    attrib.disable( GL_TEXTURE_3D );
-    attrib.disable( GL_BLEND );
-
-    kvs::OpenGL::Color( this->color() );
-    kvs::OpenGL::SetRasterPos( p.x(), p.y() );
-    char* line_head = const_cast<char*>( text.c_str() );
-    for ( char* p = line_head; *p; p++ )
-    {
-        glutBitmapCharacter( m_font, *p );
-    }
+    this->draw( kvs::Vec2( p ), text, screen );
 }
 
 void TextEngine::draw( const kvs::Vec2& p, const std::string& text, kvs::ScreenBase* screen ) const
@@ -76,7 +64,7 @@ void TextEngine::draw( const kvs::Vec2& p, const std::string& text, kvs::ScreenB
     attrib.disable( GL_TEXTURE_3D );
     attrib.disable( GL_BLEND );
 
-    kvs::OpenGL::Color( this->color() );
+    kvs::OpenGL::Color( kvs::RGBColor( this->color() ) );
     kvs::OpenGL::SetRasterPos( p.x(), p.y() );
     char* line_head = const_cast<char*>( text.c_str() );
     for ( char* p = line_head; *p; p++ )
@@ -93,7 +81,7 @@ void TextEngine::draw( const kvs::Vec3& p, const std::string& text, kvs::ScreenB
     attrib.disable( GL_TEXTURE_3D );
     attrib.disable( GL_BLEND );
 
-    kvs::OpenGL::Color( this->color() );
+    kvs::OpenGL::Color( kvs::RGBColor( this->color() ) );
     kvs::OpenGL::SetRasterPos( p.x(), p.y(), p.z() );
     char* line_head = const_cast<char*>( text.c_str() );
     for ( char* p = line_head; *p; p++ )
