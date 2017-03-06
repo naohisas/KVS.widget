@@ -328,6 +328,12 @@ Font::Font( const Family& family, const Style& style, const float size, const kv
     this->setStyle( style );
     this->setSize( size );
     this->setColor( color );
+    this->setEnabledShadow( false );
+    this->setShadowColor( kvs::RGBColor::Black() );
+    this->setShadowSizeRatio( 1.0f );
+    this->setShadowDistance( 6.0f );
+    this->setShadowAngle( 45.0f );
+    this->setShadowBlur( 4.0f );
     ::Stash.create( 512, 512, FONS_ZERO_TOPLEFT );
 }
 
