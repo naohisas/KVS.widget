@@ -41,7 +41,7 @@ public:
         }
 */
         const std::string sep = kvs::File::Separator();
-        m_search_path_list.push_back("fontstash" + sep );
+//        m_search_path_list.push_back("Font" + sep );
         m_search_path_list.push_back("." + sep );
     }
 

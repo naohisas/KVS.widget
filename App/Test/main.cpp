@@ -14,8 +14,8 @@
 
 int main( int argc, char** argv )
 {
-    kvs::Font::AddSearchPath("../../Lib/fontstash");
-    kvs::Font::AddSearchPath("../../../../../Lib/fontstash"); // for Qt
+    kvs::Font::AddSearchPath("../../Lib/Font");
+    kvs::Font::AddSearchPath("../../../../../Lib/Font"); // for Qt
 
     Application app( argc, argv );
     Screen screen( &app );
