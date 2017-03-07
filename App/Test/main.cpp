@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "Screen.h"
 #include "Label.h"
+#include "PushButton.h"
 #include <KVS.widget/Lib/TextEngine.h>
 #include <KVS.widget/Lib/Font.h>
 #include "glutTextEngine.h"
@@ -59,13 +60,25 @@ int main( int argc, char** argv )
 //    kvs::qt::TextEngine engine( font );
 
     kvs::Label label( &screen );
+    label.setBackgroundColor( kvs::RGBAColor( 0,0,0,0.2 ) );
     label.setTextEngine( engine );
     label.setMargin( 10 );
+    label.setX(0);
+    label.setY(0);
+    label.setWidth( 150 );
     label.setText( "Test Message 0" );
     label.addText( "Test Message 1" );
     label.addText( "Test Message 2" );
     label.addText( "Test Message 3" );
     label.show();
+
+    kvs::PushButton button( &screen );
+    button.setBackgroundColor( kvs::RGBAColor( 0,0,0,0.2 ) );
+    button.setMargin( 10 );
+    button.setX( label.x() );
+    button.setY( label.y() + label.height() );
+    button.setWidth( 150 );
+    button.show();
 
     return app.run();
 }

@@ -1,11 +1,13 @@
 #include "Font.h"
 #include <cstdio>
 #include <cstring>
+
 #define FONTSTASH_IMPLEMENTATION
-#include "fontstash/fontstash.h"
+#include <KVS.nanovg/Lib/fontstash.h>
 #include <kvs/OpenGL>
 #define GLFONTSTASH_IMPLEMENTATION
-#include "fontstash/glfontstash.h"
+#include <KVS.nanovg/Lib/glfontstash.h>
+
 #include <string>
 #include <vector>
 #include <kvs/File>
