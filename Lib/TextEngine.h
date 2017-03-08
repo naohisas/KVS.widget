@@ -23,6 +23,11 @@ public:
     virtual ~TextEngine();
 
     void setFont( const kvs::Font& font ) { m_font = font; }
+    void setColor( const kvs::RGBAColor& color ) { m_font.setColor( color ); }
+    void setStyleToRegular() { m_font.setStyleToRegular(); }
+    void setStyleToItalic() { m_font.setStyleToItalic(); }
+    void setStyleToBold() { m_font.setStyleToBold(); }
+    void setStyleToBoldItalic() { m_font.setStyleToBoldItalic(); }
     const kvs::RGBAColor& color() const { return m_font.color(); }
 
     virtual int width( const char c ) const;

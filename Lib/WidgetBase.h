@@ -62,6 +62,7 @@ public:
 protected:
     kvs::ScreenBase* screen() { return m_screen; }
     kvs::OpenGL::Render2D& render2D() { return m_render_2d; }
+    kvs::TextEngine& textEngine() { return *m_text_engine; }
 
     virtual void drawBackground();
     virtual void drawRect(
