@@ -59,4 +59,16 @@ void TextEngine::draw( const kvs::Vec3& p, const std::string& text, kvs::ScreenB
 {
 }
 
+void TextEngine::draw( const kvs::Vec2& p, const kvs::Font::Icon& icon, const float size ) const
+{
+    kvs::OpenGL::WithPushedAttrib attrib( GL_ALL_ATTRIB_BITS );
+    attrib.disable( GL_TEXTURE_1D );
+    attrib.disable( GL_TEXTURE_2D );
+    attrib.disable( GL_TEXTURE_3D );
+    attrib.disable( GL_DEPTH_TEST );
+    attrib.enable( GL_BLEND );
+    kvs::OpenGL::SetBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+    m_font.draw( p, icon, size );
+}
+
 } // end of namespace kvs

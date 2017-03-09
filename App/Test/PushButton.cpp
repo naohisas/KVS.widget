@@ -13,7 +13,7 @@ namespace { namespace Default
 {
 const int           TextMargin = 10;
 const int           ButtonMargin = 0;
-const kvs::RGBColor ButtonColor = kvs::RGBColor( 220, 220, 220 );
+const kvs::RGBColor ButtonColor = kvs::RGBColor( 200, 200, 200 );
 } }
 
 // Instance counter.

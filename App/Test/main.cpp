@@ -2,6 +2,9 @@
 #include "Screen.h"
 #include "Label.h"
 #include "PushButton.h"
+#include "Slider.h"
+#include "CheckBox.h"
+#include "CheckBoxGroup.h"
 #include <KVS.widget/Lib/TextEngine.h>
 #include <KVS.widget/Lib/Font.h>
 #include "glutTextEngine.h"
@@ -79,6 +82,39 @@ int main( int argc, char** argv )
     button.setY( label.y() + label.height() );
     button.setWidth( 150 );
     button.show();
+
+    kvs::Slider slider( &screen );
+//    slider.setBackgroundColor( kvs::RGBAColor( 0,0,0,0.2 ) );
+    slider.setMargin( 10 );
+    slider.setX( button.x() );
+    slider.setY( button.y() + button.height() );
+    slider.show();
+
+    kvs::CheckBox check_box1( &screen );
+//    check_box1.setBackgroundColor( kvs::RGBAColor( 0,0,0,0.2 ) );
+    check_box1.setMargin( 5 );
+    check_box1.setX( slider.x() + slider.margin() - 5 );
+    check_box1.setY( slider.y() + slider.height() );
+    check_box1.show();
+
+    kvs::CheckBox check_box2( &screen );
+//    check_box2.setBackgroundColor( kvs::RGBAColor( 0,0,0,0.2 ) );
+    check_box2.setMargin( 5 );
+    check_box2.setX( check_box1.x() );
+    check_box2.setY( check_box1.y() + check_box1.height() );
+    check_box2.show();
+
+    kvs::CheckBox check_box3( &screen );
+//    check_box3.setBackgroundColor( kvs::RGBAColor( 0,0,0,0.2 ) );
+    check_box3.setMargin( 5 );
+    check_box3.setX( check_box2.x() );
+    check_box3.setY( check_box2.y() + check_box2.height() );
+    check_box3.show();
+
+    kvs::CheckBoxGroup check_box_group;
+    check_box_group.add( &check_box1 );
+    check_box_group.add( &check_box2 );
+    check_box_group.add( &check_box3 );
 
     return app.run();
 }

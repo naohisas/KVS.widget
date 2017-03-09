@@ -9,10 +9,7 @@ namespace kvs
 
 class Font
 {
-private:
-
 public:
-
     enum Family
     {
         SansSerif = 0,
@@ -24,7 +21,16 @@ public:
         Regular = 0,
         Italic,
         Bold,
-        BoldItalic
+        BoldItalic,
+    };
+
+    enum Icon
+    {
+        Search = 0x1F50D,
+        CircledCross = 0x2716,
+        Check = 0x2713,
+        Login = 0xE740,
+        Trash = 0xE729,
     };
 
 private:
@@ -84,6 +90,7 @@ public:
     float width( const std::string& text ) const;
     float height() const;
     void draw( const kvs::Vec2& p, const std::string& text ) const;
+    void draw( const kvs::Vec2& p, const Icon& icon, const float size ) const;
 };
 
 } // end of namespace kvs

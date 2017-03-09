@@ -36,6 +36,7 @@ public:
     virtual void draw( const kvs::Vec2i& p, const std::string& text, kvs::ScreenBase* screen ) const;
     virtual void draw( const kvs::Vec2& p, const std::string& text, kvs::ScreenBase* screen ) const;
     virtual void draw( const kvs::Vec3& p, const std::string& text, kvs::ScreenBase* screen ) const;
+    void draw( const kvs::Vec2& p, const kvs::Font::Icon& icon, const float size ) const;
 };
 
 } // end of namespace kvs
