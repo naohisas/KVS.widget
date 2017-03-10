@@ -92,14 +92,30 @@ public:
     void create( const int width, const int height, const int flag )
     {
         m_context = glfonsCreate( width, height, flag );
-        this->addFont( "SansSerifRegular", "OpenSans-Regular.ttf" );
-        this->addFont( "SansSerifItalic", "OpenSans-Italic.ttf" );
-        this->addFont( "SansSerifBold", "OpenSans-Bold.ttf" );
-        this->addFont( "SansSerifBoldItalic", "OpenSans-BoldItalic.ttf" );
+        this->addFont( "SansRegular", "NotoSans-Regular.ttf" );
+        this->addFont( "SansItalic", "NotoSans-Italic.ttf" );
+        this->addFont( "SansBold", "NotoSans-Bold.ttf" );
+        this->addFont( "SansBoldItalic", "NotoSansUI-BoldItalic.ttf" );
+/*
+        this->addFont( "SansRegular", "NotoSans-Regular.ttf" );
+        this->addFont( "SansItalic", "NotoSans-Italic.ttf" );
+        this->addFont( "SansBold", "NotoSans-Bold.ttf" );
+        this->addFont( "SansBoldItalic", "NotoSans-BoldItalic.ttf" );
+*/
+        this->addFont( "SerifRegular", "NotoSerif-Regular.ttf" );
+        this->addFont( "SerifItalic", "NotoSerif-Italic.ttf" );
+        this->addFont( "SerifBold", "NotoSerif-Bold.ttf" );
+        this->addFont( "SerifBoldItalic", "NotoSerif-BoldItalic.ttf" );
+/*
+        this->addFont( "SansRegular", "OpenSans-Regular.ttf" );
+        this->addFont( "SansItalic", "OpenSans-Italic.ttf" );
+        this->addFont( "SansBold", "OpenSans-Bold.ttf" );
+        this->addFont( "SansBoldItalic", "OpenSans-BoldItalic.ttf" );
         this->addFont( "SerifRegular", "DroidSerif-Regular.ttf" );
         this->addFont( "SerifItalic", "DroidSerif-Italic.ttf" );
         this->addFont( "SerifBold", "DroidSerif-Bold.ttf" );
         this->addFont( "SerifBoldItalic", "DroidSerif-BoldItalic.ttf" );
+*/
         this->addFont( "Icon", "entypo.ttf" );
     }
 
@@ -246,7 +262,7 @@ FontStash Stash;
 
 const std::string FamilyName[] =
 {
-    "SansSerif",
+    "Sans",
     "Serif"
 };
 
@@ -288,7 +304,7 @@ void Font::RemoveSearchPath()
 
 Font::Font()
 {
-    this->setFamily( SansSerif );
+    this->setFamily( Sans );
     this->setStyle( Regular );
     this->setSize( 18.0f );
     this->setColor( kvs::RGBColor::Black() );

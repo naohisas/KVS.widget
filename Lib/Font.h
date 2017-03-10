@@ -12,7 +12,7 @@ class Font
 public:
     enum Family
     {
-        SansSerif = 0,
+        Sans = 0,
         Serif,
     };
 
@@ -71,7 +71,7 @@ public:
     float shadowBlur() const { return m_shadow_blur; }
 
     void setFamily( const Family family ) { m_family = family; }
-    void setFamilyToSansSerif() { this->setFamily( SansSerif ); }
+    void setFamilyToSans() { this->setFamily( Sans ); }
     void setFamilyToSerif() { this->setFamily( Serif ); }
     void setStyle( const Style style ) { m_style = style; }
     void setStyleToRegular() { this->setStyle( Regular ); }

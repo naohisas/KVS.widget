@@ -5,6 +5,9 @@
 #include "Slider.h"
 #include "CheckBox.h"
 #include "CheckBoxGroup.h"
+#include "RadioButton.h"
+#include "RadioButtonGroup.h"
+#include "LegendBar.h"
 #include <KVS.widget/Lib/TextEngine.h>
 #include <KVS.widget/Lib/Font.h>
 #include "glutTextEngine.h"
@@ -35,7 +38,7 @@ int main( int argc, char** argv )
     screen.registerObject( object, renderer );
 
     // KVS
-    kvs::Font font( kvs::Font::SansSerif, kvs::Font::Bold, 22 );
+    kvs::Font font( kvs::Font::Sans, kvs::Font::Bold, 22 );
     font.setColor( kvs::RGBColor::White() );
     font.setEnabledShadow( true );
     font.setShadowAngle( 45.0f );
@@ -64,7 +67,7 @@ int main( int argc, char** argv )
 
     kvs::Label label( &screen );
 //    label.setBackgroundColor( kvs::RGBAColor( 0,0,0,0.2 ) );
-//    label.setTextEngine( engine );
+    label.setTextEngine( engine );
     label.setMargin( 10 );
     label.setX(0);
     label.setY(0);
@@ -115,6 +118,36 @@ int main( int argc, char** argv )
     check_box_group.add( &check_box1 );
     check_box_group.add( &check_box2 );
     check_box_group.add( &check_box3 );
+
+    kvs::RadioButton radio_button1( &screen );
+    radio_button1.setMargin( 5 );
+    radio_button1.setX( slider.x() + slider.margin() - 5 );
+    radio_button1.setY( check_box3.y() + check_box3.height() + 10 );
+    radio_button1.show();
+
+    kvs::RadioButton radio_button2( &screen );
+    radio_button2.setMargin( 5 );
+    radio_button2.setX( radio_button1.x() );
+    radio_button2.setY( radio_button1.y() + radio_button1.height() );
+    radio_button2.show();
+
+    kvs::RadioButton radio_button3( &screen );
+    radio_button3.setMargin( 5 );
+    radio_button3.setX( radio_button2.x() );
+    radio_button3.setY( radio_button2.y() + radio_button2.height() );
+    radio_button3.show();
+
+    kvs::RadioButtonGroup radio_button_group;
+    radio_button_group.add( &radio_button1 );
+    radio_button_group.add( &radio_button2 );
+    radio_button_group.add( &radio_button3 );
+
+    kvs::LegendBar legend( &screen );
+    legend.setMargin( 10 );
+    legend.setCaption( "Colormap" );
+    legend.setX( slider.x() );
+    legend.setY( radio_button3.y() + radio_button3.height() );
+    legend.show();
 
     return app.run();
 }
