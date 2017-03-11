@@ -30,8 +30,7 @@ namespace kvs
 LegendBar::LegendBar( kvs::ScreenBase* screen ):
     kvs::WidgetBase( screen ),
     m_show_range_value( true ),
-    m_texture_downloaded( false ),
-    m_nano_vg( kvs::NanoVG::Antialias )
+    m_texture_downloaded( false )
 {
     BaseClass::setEventType(
         kvs::EventBase::PaintEvent |
@@ -324,21 +323,21 @@ void LegendBar::draw_color_bar( const int x, const int y, const int width, const
 /*===========================================================================*/
 void LegendBar::draw_border( const int x, const int y, const int width, const int height )
 {
-    m_nano_vg.beginFrame( screen()->width(), screen()->height() );
+    BaseClass::renderEngine().beginFrame( screen()->width(), screen()->height() );
 
-    m_nano_vg.beginPath();
-    m_nano_vg.setStrokeWidth( m_border_width );
-    m_nano_vg.roundedRect( x-1, y + 2.0f, width+2, height, 2 );
-    m_nano_vg.setStrokeColor( kvs::RGBColor( 250, 250, 250 ) );
-    m_nano_vg.stroke();
+    BaseClass::renderEngine().beginPath();
+    BaseClass::renderEngine().setStrokeWidth( m_border_width );
+    BaseClass::renderEngine().roundedRect( x - 0.5f, y + 2.0f, width + 1.0f, height, 2 );
+    BaseClass::renderEngine().setStrokeColor( kvs::RGBAColor( 250, 250, 250, 0.6 ) );
+    BaseClass::renderEngine().stroke();
 
-    m_nano_vg.beginPath();
-    m_nano_vg.setStrokeWidth( m_border_width );
-    m_nano_vg.roundedRect( x-1, y, width+2, height, 2 );
-    m_nano_vg.setStrokeColor( m_border_color );
-    m_nano_vg.stroke();
+    BaseClass::renderEngine().beginPath();
+    BaseClass::renderEngine().setStrokeWidth( m_border_width );
+    BaseClass::renderEngine().roundedRect( x - 0.5f, y, width + 1.0f, height, 2 );
+    BaseClass::renderEngine().setStrokeColor( m_border_color );
+    BaseClass::renderEngine().stroke();
 
-    m_nano_vg.endFrame();
+    BaseClass::renderEngine().endFrame();
 }
 
 } // end of namespace kvs

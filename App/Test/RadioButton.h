@@ -2,7 +2,6 @@
 #include <string>
 #include <kvs/ScreenBase>
 #include <KVS.widget/Lib/WidgetBase.h>
-#include <KVS.nanovg/Lib/NanoVG.h>
 
 
 namespace kvs
@@ -27,7 +26,6 @@ private:
     kvs::RGBColor m_lower_edge_color; ///< lower edge color
     bool m_state; ///< check state
     kvs::RadioButtonGroup* m_group; ///< pointer to the radio button group
-    kvs::NanoVG m_nano_vg;
 
 public:
     RadioButton( kvs::ScreenBase* screen = 0 );

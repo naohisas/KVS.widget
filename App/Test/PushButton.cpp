@@ -34,9 +34,8 @@ PushButton::PushButton( kvs::ScreenBase* screen ):
     m_pushed( false ),
     m_grad_top_color( kvs::RGBColor::White() ),
     m_grad_bottom_color( kvs::RGBColor::Black() ),
-    m_border_light_color( kvs::RGBColor( 220, 220, 220 ) ),
-    m_border_dark_color( kvs::RGBColor( 0, 0, 0 ) ),
-    m_nano_vg( kvs::NanoVG::Antialias )
+    m_border_light_color( kvs::RGBColor( 250, 250, 250 ) ),
+    m_border_dark_color( kvs::RGBColor( 0, 0, 0 ) )
 {
     BaseClass::setEventType(
         kvs::EventBase::PaintEvent |
@@ -49,7 +48,7 @@ PushButton::PushButton( kvs::ScreenBase* screen ):
     this->setTextMargin( ::Default::TextMargin );
     this->setButtonColor( ::Default::ButtonColor );
 
-//    this->textEngine().setColor( kvs::RGBColor( 200, 0, 0 ) );
+    BaseClass::textEngine().setStyleToBold();
 }
 
 /*===========================================================================*/
@@ -121,39 +120,41 @@ int PushButton::get_aligned_y()
 /*===========================================================================*/
 void PushButton::draw_button()
 {
-    m_nano_vg.beginFrame( screen()->width(), screen()->height() );
+    BaseClass::renderEngine().beginFrame( screen()->width(), screen()->height() );
 
     const GLfloat x0 = static_cast<GLfloat>( BaseClass::x0() + BaseClass::margin() );
     const GLfloat x1 = static_cast<GLfloat>( BaseClass::x1() - BaseClass::margin() );
     const GLfloat y0 = static_cast<GLfloat>( BaseClass::y0() + BaseClass::margin() );
     const GLfloat y1 = static_cast<GLfloat>( BaseClass::y1() - BaseClass::margin() );
+    const float w = x1 - x0;
+    const float h = y1 - y0;
 
     const float corner_radius = 4.0f;
-    m_nano_vg.beginPath();
-    m_nano_vg.roundedRect( x0 + 1.0f, y0 + 1.0f, x1 - x0 - 2.0f, y1 - y0 - 2.0f, corner_radius - 1.0f );
-    m_nano_vg.setFillColor( m_button_color );
-    m_nano_vg.fill();
+    BaseClass::renderEngine().beginPath();
+    BaseClass::renderEngine().roundedRect( x0 + 1.0f, y0 + 1.0f, w - 2.0f, h - 2.0f, corner_radius - 1.0f );
+    BaseClass::renderEngine().setFillColor( m_button_color );
+    BaseClass::renderEngine().fill();
 
     const kvs::RGBAColor top_color( m_pushed ? m_grad_bottom_color : m_grad_top_color, m_pushed ? 0.35f : 0.25f );
     const kvs::RGBAColor bottom_color( m_grad_bottom_color, 0.25f );
-    NVGpaint bg = m_nano_vg.linearGradient( kvs::Vec2( x0, y0 ), kvs::Vec2( x0, y1 ), top_color, bottom_color );
-    m_nano_vg.setFillPaint( bg );
-    m_nano_vg.fill();
+    NVGpaint bg = BaseClass::renderEngine().linearGradient( kvs::Vec2( x0, y0 ), kvs::Vec2( x0, y1 ), top_color, bottom_color );
+    BaseClass::renderEngine().setFillPaint( bg );
+    BaseClass::renderEngine().fill();
 
     const kvs::RGBAColor light_color( m_border_light_color, 0.6f );
     const kvs::RGBAColor dark_color( m_border_dark_color, 0.6f );
-    m_nano_vg.beginPath();
-    m_nano_vg.roundedRect( x0 + 0.5f, y0 + ( m_pushed ? 0.5f : 1.5f ), x1 - x0 - 1.0f, y1 - y0 - 1.0f - ( m_pushed ? 0.0f : 1.0f ), corner_radius );
-    m_nano_vg.setStrokeColor( light_color );
-    m_nano_vg.setStrokeWidth( 1.0f );
-    m_nano_vg.stroke();
+    BaseClass::renderEngine().beginPath();
+    BaseClass::renderEngine().roundedRect( x0 + 0.5f, y0 + ( m_pushed ? 0.5f : 1.5f ), w - 1.0f, h - 1.0f - ( m_pushed ? 0.0f : 1.0f ), corner_radius );
+    BaseClass::renderEngine().setStrokeColor( light_color );
+    BaseClass::renderEngine().setStrokeWidth( 1.0f );
+    BaseClass::renderEngine().stroke();
 
-    m_nano_vg.beginPath();
-    m_nano_vg.roundedRect( x0 + 0.5f, y0 + 0.5f, x1 - x0 - 1.0f, y1 - y0 - 2.0f, corner_radius );
-    m_nano_vg.setStrokeColor( dark_color );
-    m_nano_vg.stroke();
+    BaseClass::renderEngine().beginPath();
+    BaseClass::renderEngine().roundedRect( x0 + 0.5f, y0 + 0.5f, w - 1.0f, h - 2.0f, corner_radius );
+    BaseClass::renderEngine().setStrokeColor( dark_color );
+    BaseClass::renderEngine().stroke();
 
-    m_nano_vg.endFrame();
+    BaseClass::renderEngine().endFrame();
 }
 
 /*===========================================================================*/
@@ -174,7 +175,10 @@ void PushButton::paintEvent()
     this->draw_button();
 
     const kvs::Vec2 p( this->get_aligned_x(), this->get_aligned_y() + BaseClass::textEngine().height() );
+    BaseClass::textEngine().setColor( kvs::RGBColor::Black() );
     BaseClass::textEngine().draw( p, m_caption, BaseClass::screen() );
+    BaseClass::textEngine().setColor( kvs::RGBColor::White() );
+    BaseClass::textEngine().draw( p + kvs::Vec2( 0.5, 1 ), m_caption, BaseClass::screen() );
 
     BaseClass::render2D().end();
 }

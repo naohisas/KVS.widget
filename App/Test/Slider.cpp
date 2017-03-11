@@ -39,8 +39,7 @@ Slider::Slider( kvs::ScreenBase* screen ):
     kvs::WidgetBase( screen ),
     m_change_value( false ),
     m_show_range_value( true ),
-    m_pushed( false ),
-    m_nano_vg( kvs::NanoVG::Antialias )
+    m_pushed( false )
 {
     BaseClass::setEventType(
         kvs::EventBase::PaintEvent |
@@ -96,19 +95,19 @@ void Slider::draw_slider_bar( const int x, const int y, const int width )
 {
     const float w = width;
     const float h = 6.0f;
-    m_nano_vg.beginPath();
+    BaseClass::renderEngine().beginPath();
 
-    m_nano_vg.roundedRect( x, y, w, h, 2 );
-    m_nano_vg.setFillColor( m_slider_color );
+    BaseClass::renderEngine().roundedRect( x, y, w, h, 2 );
+    BaseClass::renderEngine().setFillColor( m_slider_color );
 
-    m_nano_vg.setStrokeWidth( 1.0f );
-    m_nano_vg.setStrokeColor( kvs::RGBColor::Black() );
-    m_nano_vg.stroke();
-    m_nano_vg.fill();
+    BaseClass::renderEngine().setStrokeWidth( 1.0f );
+    BaseClass::renderEngine().setStrokeColor( kvs::RGBColor::Black() );
+    BaseClass::renderEngine().stroke();
+    BaseClass::renderEngine().fill();
 
-    NVGpaint bg = m_nano_vg.boxGradient( x, y + 1.0f, w, h, 2, 2, nvgRGBA( 0, 0, 0, 32 ), nvgRGBA( 0, 0, 0, 128 ) );
-    m_nano_vg.setFillPaint( bg );
-    m_nano_vg.fill();
+    NVGpaint bg = BaseClass::renderEngine().boxGradient( x, y + 1.0f, w, h, 2, 2, nvgRGBA( 0, 0, 0, 32 ), nvgRGBA( 0, 0, 0, 128 ) );
+    BaseClass::renderEngine().setFillPaint( bg );
+    BaseClass::renderEngine().fill();
 }
 
 /*===========================================================================*/
@@ -136,46 +135,46 @@ void Slider::draw_cursor( const int x, const int y, const int width )
         const kvs::RGBColor shadow_color = kvs::RGBColor::Black();
         const kvs::RGBAColor color0( shadow_color, 0.25f );
         const kvs::RGBAColor color1( shadow_color, 0.0f );
-        NVGpaint bg = m_nano_vg.radialGradient( center, radius - shadow_size, radius + shadow_size, color0, color1 );
-        m_nano_vg.beginPath();
-        m_nano_vg.circle( center, radius + shadow_size );
-        m_nano_vg.setFillPaint( bg );
-        m_nano_vg.fill();
+        NVGpaint bg = BaseClass::renderEngine().radialGradient( center, radius - shadow_size, radius + shadow_size, color0, color1 );
+        BaseClass::renderEngine().beginPath();
+        BaseClass::renderEngine().circle( center, radius + shadow_size );
+        BaseClass::renderEngine().setFillPaint( bg );
+        BaseClass::renderEngine().fill();
     }
 
     // Knob
     {
         // Outer circle
-        m_nano_vg.beginPath();
-        m_nano_vg.circle( center, radius );
-        m_nano_vg.setFillColor( m_slider_color );
-        m_nano_vg.fill();
+        BaseClass::renderEngine().beginPath();
+        BaseClass::renderEngine().circle( center, radius );
+        BaseClass::renderEngine().setFillColor( m_slider_color );
+        BaseClass::renderEngine().fill();
 
         const float stroke_width = 1.0f;
         const kvs::RGBAColor stroke_color( 0, 0, 0, 0.8f );
-        m_nano_vg.setStrokeWidth( stroke_width );
-        m_nano_vg.setStrokeColor( stroke_color );
-        m_nano_vg.stroke();
+        BaseClass::renderEngine().setStrokeWidth( stroke_width );
+        BaseClass::renderEngine().setStrokeColor( stroke_color );
+        BaseClass::renderEngine().stroke();
 
         const kvs::Vec2 start( x0, y0 );
         const kvs::Vec2 end( x1, y1 );
         const kvs::RGBAColor color0( 0, 0, 0, m_pushed ? 0.2f : 0.01f );
         const kvs::RGBAColor color1( 0, 0, 0, m_pushed ? 0.6f : 0.4f );
-        NVGpaint bg = m_nano_vg.linearGradient( start, end, color0, color1 );
-        m_nano_vg.setFillPaint( bg );
-        m_nano_vg.fill();
+        NVGpaint bg = BaseClass::renderEngine().linearGradient( start, end, color0, color1 );
+        BaseClass::renderEngine().setFillPaint( bg );
+        BaseClass::renderEngine().fill();
 
         // Inner circle
-        m_nano_vg.beginPath();
-        m_nano_vg.circle( center, radius / 2.0f );
+        BaseClass::renderEngine().beginPath();
+        BaseClass::renderEngine().circle( center, radius / 2.0f );
 
-        m_nano_vg.setFillColor( m_cursor_color );
-        m_nano_vg.fill();
+        BaseClass::renderEngine().setFillColor( m_cursor_color );
+        BaseClass::renderEngine().fill();
 
-        bg = m_nano_vg.linearGradient( start, end, kvs::RGBAColor( 0, 0, 0, 0.8f ), kvs::RGBAColor( 0, 0, 0, 0.2f ) );
-        m_nano_vg.setStrokePaint( bg );
-        m_nano_vg.stroke();
-        m_nano_vg.fill();
+        bg = BaseClass::renderEngine().linearGradient( start, end, kvs::RGBAColor( 0, 0, 0, 0.8f ), kvs::RGBAColor( 0, 0, 0, 0.2f ) );
+        BaseClass::renderEngine().setStrokePaint( bg );
+        BaseClass::renderEngine().stroke();
+        BaseClass::renderEngine().fill();
     }
 }
 
@@ -293,7 +292,7 @@ void Slider::paintEvent()
     BaseClass::render2D().begin();
     BaseClass::drawBackground();
 
-    m_nano_vg.beginFrame( screen()->width(), screen()->height() );
+    BaseClass::renderEngine().beginFrame( screen()->width(), screen()->height() );
 
     const float height = BaseClass::textEngine().height();
     // Draw the caption.
@@ -331,7 +330,7 @@ void Slider::paintEvent()
         }
     }
 
-    m_nano_vg.endFrame();
+    BaseClass::renderEngine().endFrame();
 
     BaseClass::render2D().end();
 }

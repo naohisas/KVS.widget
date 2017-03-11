@@ -2,7 +2,6 @@
 #include <kvs/RGBColor>
 #include <kvs/ScreenBase>
 #include <KVS.widget/Lib/WidgetBase.h>
-#include <KVS.nanovg/Lib/NanoVG.h>
 
 
 namespace kvs
@@ -28,7 +27,6 @@ private:
     bool m_pushed;
     kvs::RGBColor m_slider_color; ///< slider (cursor) color
     kvs::RGBColor m_cursor_color; ///< cursor color
-    kvs::NanoVG m_nano_vg;
 
 public:
     Slider( kvs::ScreenBase* screen = 0 );

@@ -8,6 +8,7 @@
 #include "RadioButton.h"
 #include "RadioButtonGroup.h"
 #include "LegendBar.h"
+#include "Histogram.h"
 #include <KVS.widget/Lib/TextEngine.h>
 #include <KVS.widget/Lib/Font.h>
 #include "glutTextEngine.h"
@@ -148,6 +149,17 @@ int main( int argc, char** argv )
     legend.setX( slider.x() );
     legend.setY( radio_button3.y() + radio_button3.height() );
     legend.show();
+
+    kvs::Histogram histogram( &screen );
+    histogram.setMargin( 10 );
+    histogram.setX( slider.x() );
+    histogram.setY( legend.y() + legend.height() );
+    histogram.setWidth( 150 );
+    histogram.setHeight( 70 );
+    histogram.setIgnoreValue( 0 );
+    histogram.setGraphColor( kvs::RGBAColor( 0, 0, 0, 0.7 ) );
+    histogram.create( object );
+    histogram.show();
 
     return app.run();
 }

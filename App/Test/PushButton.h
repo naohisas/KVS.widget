@@ -3,7 +3,6 @@
 #include <kvs/RGBColor>
 #include <kvs/ScreenBase>
 #include <KVS.widget/Lib/WidgetBase.h>
-#include <KVS.nanovg/Lib/NanoVG.h>
 
 
 namespace kvs
@@ -28,7 +27,6 @@ private:
     kvs::RGBColor m_grad_bottom_color;
     kvs::RGBColor m_border_light_color;
     kvs::RGBColor m_border_dark_color;
-    kvs::NanoVG m_nano_vg;
 
 public:
     PushButton( kvs::ScreenBase* screen = 0 );

@@ -4,6 +4,7 @@
 #include <kvs/EventListener>
 #include <kvs/Rectangle>
 #include <kvs/OpenGL>
+#include <KVS.nanovg/Lib/NanoVG.h>
 #include "TextEngine.h"
 
 
@@ -22,6 +23,7 @@ class WidgetBase : public kvs::Rectangle, public kvs::EventListener
 private:
     kvs::ScreenBase* m_screen; ///< pointer to the screen
     kvs::OpenGL::Render2D m_render_2d; ///< 2D rendering
+    kvs::NanoVG* m_render_engine; ///< vector graphics engine
     kvs::TextEngine* m_text_engine; ///< pointer to the text engine
 
     int m_margin; ///< margin
@@ -62,6 +64,7 @@ public:
 protected:
     kvs::ScreenBase* screen() { return m_screen; }
     kvs::OpenGL::Render2D& render2D() { return m_render_2d; }
+    kvs::NanoVG& renderEngine() { return *m_render_engine; }
     kvs::TextEngine& textEngine() { return *m_text_engine; }
 
     virtual void drawBackground();

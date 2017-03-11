@@ -5,7 +5,6 @@
 #include <kvs/Texture2D>
 #include <kvs/ScreenBase>
 #include <KVS.widget/Lib/WidgetBase.h>
-#include <KVS.nanovg/Lib/NanoVG.h>
 
 
 namespace kvs
@@ -42,7 +41,6 @@ private:
     bool m_show_range_value; ///< range value showing flag
     bool m_enable_anti_aliasing; ///< check flag for anti-aliasing
     bool m_texture_downloaded; ///< check flag for texture
-    kvs::NanoVG m_nano_vg;
 
 public:
     LegendBar( kvs::ScreenBase* screen = 0 );

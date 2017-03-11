@@ -55,8 +55,8 @@ namespace kvs
 /*===========================================================================*/
 RadioButton::RadioButton( kvs::ScreenBase* screen ):
     kvs::WidgetBase( screen ),
-    m_group( NULL ),
-    m_nano_vg( kvs::NanoVG::Antialias )
+    m_group( NULL )
+
 {
     BaseClass::setEventType(
         kvs::EventBase::PaintEvent |
@@ -79,7 +79,7 @@ RadioButton::RadioButton( kvs::ScreenBase* screen ):
 /*===========================================================================*/
 void RadioButton::draw_box()
 {
-    m_nano_vg.beginFrame( screen()->width(), screen()->height() );
+    BaseClass::renderEngine().beginFrame( screen()->width(), screen()->height() );
 
     const int dy = BaseClass::textEngine().height() - ::Default::CircleHeight;
     const GLfloat x0 = static_cast<GLfloat>( BaseClass::x0() + BaseClass::margin() );
@@ -90,26 +90,26 @@ void RadioButton::draw_box()
     const kvs::Vec2 center( cx, cy );
     const float radius = ::Default::CircleWidth * 0.5f;
 
-    m_nano_vg.beginPath();
+    BaseClass::renderEngine().beginPath();
 
-    m_nano_vg.circle( center, radius );
-    m_nano_vg.setFillColor( ::Default::CircleColor );
-    m_nano_vg.fill();
+    BaseClass::renderEngine().circle( center, radius );
+    BaseClass::renderEngine().setFillColor( ::Default::CircleColor );
+    BaseClass::renderEngine().fill();
 
     const float stroke_width = 1.0f;
     const kvs::RGBAColor stroke_color( 0, 0, 0, 0.8f );
-    m_nano_vg.setStrokeWidth( stroke_width );
-    m_nano_vg.setStrokeColor( stroke_color );
-    m_nano_vg.stroke();
+    BaseClass::renderEngine().setStrokeWidth( stroke_width );
+    BaseClass::renderEngine().setStrokeColor( stroke_color );
+    BaseClass::renderEngine().stroke();
 
     const float w = ::Default::CircleWidth;
     const float h = ::Default::CircleHeight;
-    NVGpaint bg = m_nano_vg.boxGradient( x0 + 1.5f, y0 + 1.5f, w, h, 8, 3, nvgRGBA( 0, 0, 0, 32 ), nvgRGBA( 0, 0, 0, 128 ) );
+    NVGpaint bg = BaseClass::renderEngine().boxGradient( x0 + 1.5f, y0 + 1.5f, w, h, 8, 3, nvgRGBA( 0, 0, 0, 32 ), nvgRGBA( 0, 0, 0, 128 ) );
 
-    m_nano_vg.setFillPaint( bg );
-    m_nano_vg.fill();
+    BaseClass::renderEngine().setFillPaint( bg );
+    BaseClass::renderEngine().fill();
 
-    m_nano_vg.endFrame();
+    BaseClass::renderEngine().endFrame();
 }
 
 /*===========================================================================*/
@@ -129,13 +129,13 @@ void RadioButton::draw_mark()
     const kvs::Vec2 center( cx, cy );
     const float radius = ::Default::CircleWidth * 0.5f / 2.0f;
 
-    m_nano_vg.beginPath();
+    BaseClass::renderEngine().beginPath();
 
-    m_nano_vg.circle( center, radius );
-    m_nano_vg.setFillColor( kvs::RGBColor::Black() );
-    m_nano_vg.fill();
+    BaseClass::renderEngine().circle( center, radius );
+    BaseClass::renderEngine().setFillColor( kvs::RGBColor::Black() );
+    BaseClass::renderEngine().fill();
 
-    m_nano_vg.endFrame();
+    BaseClass::renderEngine().endFrame();
 }
 
 /*===========================================================================*/

@@ -26,6 +26,7 @@ namespace kvs
 /*===========================================================================*/
 WidgetBase::WidgetBase( kvs::ScreenBase* screen ):
     m_screen( screen ),
+    m_render_engine( new kvs::NanoVG( kvs::NanoVG::Antialias ) ),
     m_text_engine( new kvs::TextEngine() ),
     m_margin( 0 ),
     m_is_shown( false ),
@@ -46,6 +47,7 @@ WidgetBase::WidgetBase( kvs::ScreenBase* screen ):
 /*===========================================================================*/
 WidgetBase::~WidgetBase()
 {
+    if ( m_render_engine ) { delete m_render_engine; }
     if ( m_text_engine ) { delete m_text_engine; }
 }
 

@@ -34,8 +34,7 @@ namespace kvs
 /*===========================================================================*/
 CheckBox::CheckBox( kvs::ScreenBase* screen ):
     kvs::WidgetBase( screen ),
-    m_group( NULL ),
-    m_nano_vg( kvs::NanoVG::Antialias )
+    m_group( NULL )
 {
     BaseClass::setEventType(
         kvs::EventBase::PaintEvent |
@@ -58,31 +57,35 @@ CheckBox::CheckBox( kvs::ScreenBase* screen ):
 /*===========================================================================*/
 void CheckBox::draw_box()
 {
-    m_nano_vg.beginFrame( screen()->width(), screen()->height() );
+    BaseClass::renderEngine().beginFrame( screen()->width(), screen()->height() );
 
     const int dy = BaseClass::textEngine().height() - ::Default::BoxHeight;
     const GLfloat x0 = static_cast<GLfloat>( BaseClass::x0() + BaseClass::margin() );
     const GLfloat x1 = static_cast<GLfloat>( x0 + ::Default::BoxWidth );
     const GLfloat y0 = static_cast<GLfloat>( BaseClass::y0() + BaseClass::margin() + dy );
     const GLfloat y1 = static_cast<GLfloat>( y0 + ::Default::BoxHeight );
-
-    m_nano_vg.beginPath();
-
     const float w = x1 - x0;
     const float h = y1 - y0;
-    m_nano_vg.roundedRect( x0, y0, w, h, 3 );
-    m_nano_vg.setFillColor( ::Default::BoxColor );
 
-    m_nano_vg.setStrokeWidth( 1.0f );
-    m_nano_vg.setStrokeColor( kvs::RGBColor::Black() );
-    m_nano_vg.stroke();
-    m_nano_vg.fill();
+    BaseClass::renderEngine().beginPath();
+    BaseClass::renderEngine().roundedRect( x0, y0, w, h, 3 );
+    BaseClass::renderEngine().setFillColor( ::Default::BoxColor );
 
-    NVGpaint bg = m_nano_vg.boxGradient( x0 + 1.5f, y0 + 1.5f, w, h, 3, 2, nvgRGBA( 0, 0, 0, 32 ), nvgRGBA( 0, 0, 0, 128 ) );
-    m_nano_vg.setFillPaint( bg );
-    m_nano_vg.fill();
+    BaseClass::renderEngine().setStrokeWidth( 1.0f );
+    BaseClass::renderEngine().setStrokeColor( kvs::RGBColor::Black() );
 
-    m_nano_vg.endFrame();
+    BaseClass::renderEngine().stroke();
+    BaseClass::renderEngine().fill();
+
+    const float x = x0 + 1.5f;
+    const float y = y0 + 1.5f;
+    const NVGcolor c0 = nvgRGBA( 0, 0, 0, 32 );
+    const NVGcolor c1 = nvgRGBA( 0, 0, 0, 128 );
+    NVGpaint bg = BaseClass::renderEngine().boxGradient( x, y, w, h, 3, 3, c0, c1 );
+    BaseClass::renderEngine().setFillPaint( bg );
+    BaseClass::renderEngine().fill();
+
+    BaseClass::renderEngine().endFrame();
 }
 
 /*===========================================================================*/

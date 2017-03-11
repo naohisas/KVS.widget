@@ -2,7 +2,7 @@
 #include <string>
 #include <kvs/ScreenBase>
 #include <KVS.widget/Lib/WidgetBase.h>
-#include <KVS.nanovg/Lib/NanoVG.h>
+//#include <KVS.nanovg/Lib/NanoVG.h>
 
 
 namespace kvs
@@ -27,7 +27,7 @@ private:
     kvs::RGBColor m_lower_edge_color; ///< lower edge color
     bool m_state; ///< check state
     kvs::CheckBoxGroup* m_group; ///< pointer to the check box group
-    kvs::NanoVG m_nano_vg;
+//    kvs::NanoVG m_nano_vg;
 
 public:
     CheckBox( kvs::ScreenBase* screen = 0 );
