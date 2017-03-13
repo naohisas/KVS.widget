@@ -95,19 +95,33 @@ void Slider::draw_slider_bar( const int x, const int y, const int width )
 {
     const float w = width;
     const float h = 6.0f;
-    BaseClass::renderEngine().beginPath();
+    const float w0 = width * ( m_value - m_min_value ) / ( m_max_value - m_min_value );
 
+    BaseClass::renderEngine().beginPath();
     BaseClass::renderEngine().roundedRect( x, y, w, h, 2 );
-    BaseClass::renderEngine().setFillColor( m_slider_color );
 
     BaseClass::renderEngine().setStrokeWidth( 1.0f );
     BaseClass::renderEngine().setStrokeColor( kvs::RGBColor::Black() );
     BaseClass::renderEngine().stroke();
+
+    BaseClass::renderEngine().setFillColor( m_slider_color );
     BaseClass::renderEngine().fill();
 
     NVGpaint bg = BaseClass::renderEngine().boxGradient( x, y + 1.0f, w, h, 2, 2, nvgRGBA( 0, 0, 0, 32 ), nvgRGBA( 0, 0, 0, 128 ) );
     BaseClass::renderEngine().setFillPaint( bg );
     BaseClass::renderEngine().fill();
+
+    if ( true )
+    {
+        BaseClass::renderEngine().beginPath();
+        BaseClass::renderEngine().roundedRect( x, y, w0, h, 2 );
+        BaseClass::renderEngine().setFillColor( kvs::RGBColor( 60, 150, 250 ) );
+        BaseClass::renderEngine().fill();
+
+        bg = BaseClass::renderEngine().boxGradient( x, y + 4.0f, w0, h, 2, 3, nvgRGBA( 0, 0, 0, 64 ), nvgRGBA( 0, 0, 0, 32 ) );
+        BaseClass::renderEngine().setFillPaint( bg );
+        BaseClass::renderEngine().fill();
+    }
 }
 
 /*===========================================================================*/

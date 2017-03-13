@@ -2,7 +2,6 @@
 #include <string>
 #include <kvs/ScreenBase>
 #include <KVS.widget/Lib/WidgetBase.h>
-//#include <KVS.nanovg/Lib/NanoVG.h>
 
 
 namespace kvs
@@ -23,11 +22,8 @@ public:
 
 private:
     std::string m_caption; ///< caption
-    kvs::RGBColor m_upper_edge_color; ///< upper edge color
-    kvs::RGBColor m_lower_edge_color; ///< lower edge color
     bool m_state; ///< check state
     kvs::CheckBoxGroup* m_group; ///< pointer to the check box group
-//    kvs::NanoVG m_nano_vg;
 
 public:
     CheckBox( kvs::ScreenBase* screen = 0 );

@@ -132,11 +132,12 @@ void PushButton::draw_button()
     const float corner_radius = 4.0f;
     BaseClass::renderEngine().beginPath();
     BaseClass::renderEngine().roundedRect( x0 + 1.0f, y0 + 1.0f, w - 2.0f, h - 2.0f, corner_radius - 1.0f );
-    BaseClass::renderEngine().setFillColor( m_button_color );
+//    BaseClass::renderEngine().setFillColor( m_button_color );
+    BaseClass::renderEngine().setFillColor( m_pushed ? kvs::RGBColor( 60, 150, 250 ) : m_button_color );
     BaseClass::renderEngine().fill();
 
-    const kvs::RGBAColor top_color( m_pushed ? m_grad_bottom_color : m_grad_top_color, m_pushed ? 0.35f : 0.25f );
-    const kvs::RGBAColor bottom_color( m_grad_bottom_color, 0.25f );
+    const kvs::RGBAColor top_color( m_pushed ? m_grad_bottom_color : m_grad_top_color, m_pushed ? 0.3f : 0.1f );
+    const kvs::RGBAColor bottom_color( m_grad_bottom_color, 0.2f );
     NVGpaint bg = BaseClass::renderEngine().linearGradient( kvs::Vec2( x0, y0 ), kvs::Vec2( x0, y1 ), top_color, bottom_color );
     BaseClass::renderEngine().setFillPaint( bg );
     BaseClass::renderEngine().fill();

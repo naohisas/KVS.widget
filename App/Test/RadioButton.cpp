@@ -18,26 +18,6 @@ const int           CircleWidth = 15;
 const int           CircleHeight = 15;
 const kvs::RGBColor CircleColor = kvs::RGBColor( 200, 200, 200 );
 const kvs::RGBColor CircleEdgeColor = kvs::RGBColor( 230, 230, 230 );
-/*
-const float         CircleVertices[14] = {
-     6.00000f,  0.00000f,
-     3.74094f,  4.69099f,
-    -1.33513f,  5.84957f,
-    -5.40581f,  2.60330f,
-    -5.40581f, -2.60330f,
-    -1.33513f, -5.84957f,
-     3.74094f, -4.69099f
-};
-const float         MarkVertices[14] = {
-     2.00000f,  0.00000f,
-     1.24698f,  1.56366f,
-    -0.44504f,  1.94986f,
-    -1.80194f,  0.86777f,
-    -1.80194f, -0.86777f,
-    -0.44504f, -1.94986f,
-     1.24698f, -1.56366f
-};
-*/
 } }
 
 // Instance counter.
@@ -56,7 +36,6 @@ namespace kvs
 RadioButton::RadioButton( kvs::ScreenBase* screen ):
     kvs::WidgetBase( screen ),
     m_group( NULL )
-
 {
     BaseClass::setEventType(
         kvs::EventBase::PaintEvent |
@@ -92,8 +71,9 @@ void RadioButton::draw_box()
 
     BaseClass::renderEngine().beginPath();
 
+    const kvs::RGBColor color = m_state ? kvs::RGBColor( 60, 150, 250 ) : ::Default::CircleColor;
     BaseClass::renderEngine().circle( center, radius );
-    BaseClass::renderEngine().setFillColor( ::Default::CircleColor );
+    BaseClass::renderEngine().setFillColor( color );
     BaseClass::renderEngine().fill();
 
     const float stroke_width = 1.0f;
@@ -127,12 +107,12 @@ void RadioButton::draw_mark()
     const float cy = y0 + ::Default::CircleHeight * 0.5f;
 
     const kvs::Vec2 center( cx, cy );
-    const float radius = ::Default::CircleWidth * 0.5f / 2.0f;
+    const float radius = ::Default::CircleWidth * 0.5f / 2.5f;
 
     BaseClass::renderEngine().beginPath();
 
     BaseClass::renderEngine().circle( center, radius );
-    BaseClass::renderEngine().setFillColor( kvs::RGBColor::Black() );
+    BaseClass::renderEngine().setFillColor( kvs::RGBColor::White() );
     BaseClass::renderEngine().fill();
 
     BaseClass::renderEngine().endFrame();

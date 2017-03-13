@@ -11,13 +11,10 @@
 // Default parameters.
 namespace { namespace Default
 {
-const int           TextMargin = 10;
-const int           BoxMargin = 0;
+const int           TextMargin = 10; // indenting space for the text
 const int           BoxWidth = 15;
 const int           BoxHeight = 15;
-//const kvs::RGBColor BoxColor = kvs::RGBColor( 255, 255, 255 );
 const kvs::RGBColor BoxColor = kvs::RGBColor( 200, 200, 200 );
-const kvs::RGBColor BoxEdgeColor = kvs::RGBColor( 230, 230, 230 );
 } }
 
 // Instance counter.
@@ -42,12 +39,8 @@ CheckBox::CheckBox( kvs::ScreenBase* screen ):
         kvs::EventBase::MousePressEvent |
         kvs::EventBase::MouseReleaseEvent );
 
-    BaseClass::setMargin( ::Default::BoxMargin );
     this->setCaption( "CheckBox " + kvs::String::ToString( ::InstanceCounter++ ) );
     this->setState( false );
-
-    m_upper_edge_color = BaseClass::darkenedColor( ::Default::BoxColor, 0.6f );
-    m_lower_edge_color = ::Default::BoxEdgeColor;
 }
 
 /*===========================================================================*/
@@ -67,9 +60,10 @@ void CheckBox::draw_box()
     const float w = x1 - x0;
     const float h = y1 - y0;
 
+    const kvs::RGBColor color = m_state ? kvs::RGBColor( 60, 150, 250 ) : ::Default::BoxColor;
     BaseClass::renderEngine().beginPath();
     BaseClass::renderEngine().roundedRect( x0, y0, w, h, 3 );
-    BaseClass::renderEngine().setFillColor( ::Default::BoxColor );
+    BaseClass::renderEngine().setFillColor( color );
 
     BaseClass::renderEngine().setStrokeWidth( 1.0f );
     BaseClass::renderEngine().setStrokeColor( kvs::RGBColor::Black() );
@@ -98,8 +92,11 @@ void CheckBox::draw_mark()
     const int dy = BaseClass::textEngine().height() - ::Default::BoxHeight;
     const GLfloat x0 = static_cast<GLfloat>( BaseClass::x0() + BaseClass::margin() );
     const GLfloat y0 = static_cast<GLfloat>( BaseClass::y0() + BaseClass::margin() + dy );
-
+    const kvs::RGBColor backup_color = BaseClass::textEngine().font().color();
+    const kvs::RGBColor color = m_state ? kvs::RGBColor::White() : backup_color;
+    BaseClass::textEngine().font().setColor( kvs::RGBColor::White() );
     BaseClass::textEngine().draw( kvs::Vec2( x0 + 2, y0 + 18 ), kvs::Font::Check, 28 );
+    BaseClass::textEngine().font().setColor( backup_color );
 }
 
 /*===========================================================================*/
