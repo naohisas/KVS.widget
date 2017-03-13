@@ -228,7 +228,9 @@ void Histogram::draw_palette()
     const int y0 = m_palette.y0();
     const int y1 = m_palette.y1();
     kvs::OpenGL::Begin( GL_QUADS );
-    kvs::OpenGL::Color( kvs::RGBColor( 240, 240, 240 ) );
+//    kvs::OpenGL::Color( kvs::RGBColor( 240, 240, 240 ) );
+    kvs::OpenGL::Color( kvs::RGBColor( 230, 230, 230 ) );
+//    kvs::OpenGL::Color( kvs::RGBColor( 50, 50, 50 ) );
     kvs::OpenGL::Vertex( x0, y0 );
     kvs::OpenGL::Vertex( x1, y0 );
     kvs::OpenGL::Vertex( x1, y1 );
@@ -276,13 +278,13 @@ void Histogram::draw_palette()
 
     BaseClass::renderEngine().beginPath();
     BaseClass::renderEngine().setStrokeWidth( 1.0f );
-    BaseClass::renderEngine().roundedRect( x - 0.5f, y + 2.0f, width + 1.0f, height, 2 );
-    BaseClass::renderEngine().setStrokeColor( kvs::RGBAColor( 250, 250, 250, 0.8f ) );
+    BaseClass::renderEngine().roundedRect( x - 0.5f, y + 2.0f, width + 1.0f, height, 3 );
+    BaseClass::renderEngine().setStrokeColor( kvs::RGBAColor( 250, 250, 250, 0.6f ) );
     BaseClass::renderEngine().stroke();
 
     BaseClass::renderEngine().beginPath();
     BaseClass::renderEngine().setStrokeWidth( 1.0f );
-    BaseClass::renderEngine().roundedRect( x - 0.5f, y, width + 1.0f, height, 2 );
+    BaseClass::renderEngine().roundedRect( x - 0.5f, y, width + 1.0f, height, 3 );
     BaseClass::renderEngine().setStrokeColor( kvs::RGBAColor( 0, 0, 0, 1.0f ) );
     BaseClass::renderEngine().stroke();
 

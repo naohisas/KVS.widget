@@ -22,13 +22,9 @@ public:
     TextEngine( TextEngine* engine );
     virtual ~TextEngine();
 
+    kvs::Font& font() { return m_font; }
+    const kvs::Font& font() const { return m_font; }
     void setFont( const kvs::Font& font ) { m_font = font; }
-    void setColor( const kvs::RGBAColor& color ) { m_font.setColor( color ); }
-    void setStyleToRegular() { m_font.setStyleToRegular(); }
-    void setStyleToItalic() { m_font.setStyleToItalic(); }
-    void setStyleToBold() { m_font.setStyleToBold(); }
-    void setStyleToBoldItalic() { m_font.setStyleToBoldItalic(); }
-    const kvs::RGBAColor& color() const { return m_font.color(); }
 
     virtual int width( const char c ) const;
     virtual int width( const std::string& text ) const;

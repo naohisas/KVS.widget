@@ -24,6 +24,21 @@ public:
         BoldItalic,
     };
 
+    enum HorizontalAlign
+    {
+        Left = 1 << 0,
+        Center = 1 << 1,
+        Right = 1 << 2,
+    };
+
+    enum VerticalAlign
+    {
+        Top = 1 << 3,
+        Middle = 1 << 4,
+        Bottom = 1 << 5,
+        Baseline = 1 << 6,
+    };
+
     enum Icon
     {
         Search = 0x1F50D,
@@ -36,6 +51,8 @@ public:
 private:
     Family m_family;
     Style m_style;
+    HorizontalAlign m_horizontal_align;
+    VerticalAlign m_vertical_align;
     float m_size;
     kvs::RGBAColor m_color;
     bool m_enabled_shadow;
@@ -61,6 +78,8 @@ public:
 
     Family family() const { return m_family; }
     Style style() const { return m_style; }
+    HorizontalAlign horizontalAlign() const { return m_horizontal_align; }
+    VerticalAlign verticalAlign() const { return m_vertical_align; }
     float size() const { return m_size; }
     const kvs::RGBAColor& color() const { return m_color; }
     bool isEnabledShadow() const { return m_enabled_shadow; }
@@ -78,6 +97,15 @@ public:
     void setStyleToItalic() { this->setStyle( Italic ); }
     void setStyleToBold() { this->setStyle( Bold ); }
     void setStyleToBoldItalic() { this->setStyle( BoldItalic ); }
+    void setHorizontalAlign( const HorizontalAlign align ) { m_horizontal_align = align; }
+    void setHorizontalAlignToLeft() { this->setHorizontalAlign( Left ); }
+    void setHorizontalAlignToCenter() { this->setHorizontalAlign( Center ); }
+    void setHorizontalAlignToRight() { this->setHorizontalAlign( Right ); }
+    void setVerticalAlign( const VerticalAlign align ) { m_vertical_align = align; }
+    void setVerticalAlignToTop() { this->setVerticalAlign( Top ); }
+    void setVerticalAlignToMiddle() { this->setVerticalAlign( Middle ); }
+    void setVerticalAlignToBottom() { this->setVerticalAlign( Bottom ); }
+    void setVerticalAlignToBaseline() { this->setVerticalAlign( Baseline ); }
     void setSize( const float size ) { m_size = size; }
     void setColor( const kvs::RGBAColor& color ) { m_color = color; }
     void setEnabledShadow( const bool enabled ) { m_enabled_shadow = enabled; }

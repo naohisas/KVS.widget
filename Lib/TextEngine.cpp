@@ -57,6 +57,37 @@ void TextEngine::draw( const kvs::Vec2& p, const std::string& text, kvs::ScreenB
 
 void TextEngine::draw( const kvs::Vec3& p, const std::string& text, kvs::ScreenBase* screen ) const
 {
+    GLdouble model[16]; kvs::OpenGL::GetModelViewMatrix( model );
+    GLdouble proj[16]; kvs::OpenGL::GetProjectionMatrix( proj );
+    GLint view[4]; kvs::OpenGL::GetViewport( view );
+    GLdouble winx = 0, winy = 0, winz = 0;
+    kvs::OpenGL::Project( p.x(), p.y(), p.z(), model, proj, view, &winx, &winy, &winz );
+
+    kvs::OpenGL::WithPushedAttrib attrib( GL_ALL_ATTRIB_BITS );
+    attrib.disable( GL_TEXTURE_1D );
+    attrib.disable( GL_TEXTURE_2D );
+    attrib.disable( GL_TEXTURE_3D );
+    attrib.enable( GL_DEPTH_TEST );
+    attrib.enable( GL_BLEND );
+    {
+        kvs::OpenGL::SetBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+        kvs::OpenGL::WithPushedMatrix modelview( GL_MODELVIEW );
+        modelview.loadIdentity();
+        {
+            kvs::OpenGL::WithPushedMatrix projection( GL_PROJECTION );
+            projection.loadIdentity();
+            {
+                const GLint left = view[0];
+                const GLint top = view[1];
+                const GLint right = view[0] + view[2];
+                const GLint bottom = view[1] + view[3];
+                const float height = screen->height();
+                kvs::OpenGL::SetOrtho( left, right, bottom, top, 0, 1 );
+                kvs::OpenGL::Translate( 0, 0, -winz );
+                m_font.draw( kvs::Vec2( winx, ( height - winy ) + top ), text );
+            }
+        }
+    }
 }
 
 void TextEngine::draw( const kvs::Vec2& p, const kvs::Font::Icon& icon, const float size ) const

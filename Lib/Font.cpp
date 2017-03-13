@@ -306,6 +306,8 @@ Font::Font()
 {
     this->setFamily( Sans );
     this->setStyle( Regular );
+    this->setHorizontalAlign( Left );
+    this->setVerticalAlign( Baseline );
     this->setSize( 18.0f );
     this->setColor( kvs::RGBColor::Black() );
     this->setEnabledShadow( false );
@@ -321,6 +323,8 @@ Font::Font( const Family& family, const float size )
 {
     this->setFamily( family );
     this->setStyle( Regular );
+    this->setHorizontalAlign( Left );
+    this->setVerticalAlign( Baseline );
     this->setSize( size );
     this->setColor( kvs::RGBColor::Black() );
     this->setEnabledShadow( false );
@@ -336,6 +340,8 @@ Font::Font( const Family& family, const float size, const kvs::RGBAColor& color 
 {
     this->setFamily( family );
     this->setStyle( Regular );
+    this->setHorizontalAlign( Left );
+    this->setVerticalAlign( Baseline );
     this->setSize( size );
     this->setColor( color );
     this->setEnabledShadow( false );
@@ -351,6 +357,8 @@ Font::Font( const Family& family, const Style& style, const float size )
 {
     this->setFamily( family );
     this->setStyle( style );
+    this->setHorizontalAlign( Left );
+    this->setVerticalAlign( Baseline );
     this->setSize( size );
     this->setColor( kvs::RGBColor::Black() );
     this->setEnabledShadow( false );
@@ -366,6 +374,8 @@ Font::Font( const Family& family, const Style& style, const float size, const kv
 {
     this->setFamily( family );
     this->setStyle( style );
+    this->setHorizontalAlign( Left );
+    this->setVerticalAlign( Baseline );
     this->setSize( size );
     this->setColor( color );
     this->setEnabledShadow( false );
@@ -412,12 +422,14 @@ void Font::draw( const kvs::Vec2& p, const std::string& text ) const
     const kvs::Vec2 v( this->shadowDistance(), 0.0f );
     if ( this->isEnabledShadow() )
     {
+        ::Stash.setAlign( this->horizontalAlign() | this->verticalAlign() );
         ::Stash.setBlur( this->shadowBlur() );
         ::Stash.setColor( ::Stash.colorID( this->shadowColor() ) );
         ::Stash.setSize( this->size() * this->shadowSizeRatio() );
         ::Stash.draw( p + d + r * v, text );
     }
 
+    ::Stash.setAlign( this->horizontalAlign() | this->verticalAlign() );
     ::Stash.setBlur( 0.0f );
     ::Stash.setColor( ::Stash.colorID( this->color() ) );
     ::Stash.setSize( this->size() );
@@ -431,6 +443,7 @@ void Font::draw( const kvs::Vec2& p, const Font::Icon& icon, const float size ) 
     const int font_id = ::Stash.fontID( "Icon" );
     const kvs::Vec2 d( 0.0f, ::Stash.descender() );
     ::Stash.setFont( font_id );
+    ::Stash.setAlign( this->horizontalAlign() | this->verticalAlign() );
     ::Stash.setColor( ::Stash.colorID( this->color() ) );
     ::Stash.setSize( size );
     ::Stash.draw( p + d, ::ToUTF8( icon ) );

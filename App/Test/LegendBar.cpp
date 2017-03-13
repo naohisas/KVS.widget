@@ -327,13 +327,13 @@ void LegendBar::draw_border( const int x, const int y, const int width, const in
 
     BaseClass::renderEngine().beginPath();
     BaseClass::renderEngine().setStrokeWidth( m_border_width );
-    BaseClass::renderEngine().roundedRect( x - 0.5f, y + 2.0f, width + 1.0f, height, 2 );
-    BaseClass::renderEngine().setStrokeColor( kvs::RGBAColor( 250, 250, 250, 0.6 ) );
+    BaseClass::renderEngine().roundedRect( x - 0.5f, y + 2.0f, width + 1.0f, height, 3 );
+    BaseClass::renderEngine().setStrokeColor( kvs::RGBAColor( 250, 250, 250, 0.6f ) );
     BaseClass::renderEngine().stroke();
 
     BaseClass::renderEngine().beginPath();
     BaseClass::renderEngine().setStrokeWidth( m_border_width );
-    BaseClass::renderEngine().roundedRect( x - 0.5f, y, width + 1.0f, height, 2 );
+    BaseClass::renderEngine().roundedRect( x - 0.5f, y, width + 1.0f, height, 3 );
     BaseClass::renderEngine().setStrokeColor( m_border_color );
     BaseClass::renderEngine().stroke();
 

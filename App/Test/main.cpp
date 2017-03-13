@@ -9,6 +9,7 @@
 #include "RadioButtonGroup.h"
 #include "LegendBar.h"
 #include "Histogram.h"
+#include "OrientationAxis.h"
 #include <KVS.widget/Lib/TextEngine.h>
 #include <KVS.widget/Lib/Font.h>
 #include "glutTextEngine.h"
@@ -160,6 +161,12 @@ int main( int argc, char** argv )
     histogram.setGraphColor( kvs::RGBAColor( 0, 0, 0, 0.7 ) );
     histogram.create( object );
     histogram.show();
+
+    kvs::OrientationAxis orientation_axis( &screen, screen.scene() );
+    orientation_axis.setBoxType( kvs::OrientationAxis::SolidBox );
+    orientation_axis.setMargin( 10 );
+    orientation_axis.setX( label.x() + label.width() );
+    orientation_axis.show();
 
     return app.run();
 }

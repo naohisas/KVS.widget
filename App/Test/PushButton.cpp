@@ -48,7 +48,7 @@ PushButton::PushButton( kvs::ScreenBase* screen ):
     this->setTextMargin( ::Default::TextMargin );
     this->setButtonColor( ::Default::ButtonColor );
 
-    BaseClass::textEngine().setStyleToBold();
+    BaseClass::textEngine().font().setStyleToBold();
 }
 
 /*===========================================================================*/
@@ -175,9 +175,9 @@ void PushButton::paintEvent()
     this->draw_button();
 
     const kvs::Vec2 p( this->get_aligned_x(), this->get_aligned_y() + BaseClass::textEngine().height() );
-    BaseClass::textEngine().setColor( kvs::RGBColor::Black() );
+    BaseClass::textEngine().font().setColor( kvs::RGBColor::Black() );
     BaseClass::textEngine().draw( p, m_caption, BaseClass::screen() );
-    BaseClass::textEngine().setColor( kvs::RGBColor::White() );
+    BaseClass::textEngine().font().setColor( kvs::RGBColor::White() );
     BaseClass::textEngine().draw( p + kvs::Vec2( 0.5, 1 ), m_caption, BaseClass::screen() );
 
     BaseClass::render2D().end();
