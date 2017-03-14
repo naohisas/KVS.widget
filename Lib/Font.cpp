@@ -1,5 +1,6 @@
 #include "Font.h"
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 //#define FONTSTASH_IMPLEMENTATION
 #include <KVS.nanovg/Lib/fontstash.h>

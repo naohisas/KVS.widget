@@ -11,9 +11,9 @@
 // Default parameters.
 namespace { namespace Default
 {
-const int           TextMargin = 10; // indenting space for the text
-const int           BoxWidth = 15;
-const int           BoxHeight = 15;
+const int TextMargin = 10; // indenting space for the text
+const int BoxWidth = 15;
+const int BoxHeight = 15;
 const kvs::RGBColor BoxColor = kvs::RGBColor( 200, 200, 200 );
 } }
 
@@ -92,11 +92,10 @@ void CheckBox::draw_mark()
     const int dy = BaseClass::textEngine().height() - ::Default::BoxHeight;
     const GLfloat x0 = static_cast<GLfloat>( BaseClass::x0() + BaseClass::margin() );
     const GLfloat y0 = static_cast<GLfloat>( BaseClass::y0() + BaseClass::margin() + dy );
-    const kvs::RGBColor backup_color = BaseClass::textEngine().font().color();
-    const kvs::RGBColor color = m_state ? kvs::RGBColor::White() : backup_color;
+    const kvs::RGBColor color = BaseClass::textEngine().font().color();
     BaseClass::textEngine().font().setColor( kvs::RGBColor::White() );
     BaseClass::textEngine().draw( kvs::Vec2( x0 + 2, y0 + 18 ), kvs::Font::Check, 28 );
-    BaseClass::textEngine().font().setColor( backup_color );
+    BaseClass::textEngine().font().setColor( color );
 }
 
 /*===========================================================================*/
@@ -107,7 +106,8 @@ void CheckBox::draw_mark()
 /*===========================================================================*/
 int CheckBox::adjustedWidth()
 {
-    return ::Default::BoxWidth + BaseClass::textEngine().width( m_caption ) + ::Default::TextMargin + BaseClass::margin() * 2;
+    const size_t text_width = BaseClass::textEngine().width( m_caption );
+    return ::Default::BoxWidth + text_width + ::Default::TextMargin + BaseClass::margin() * 2;
 }
 
 /*===========================================================================*/
@@ -160,7 +160,8 @@ void CheckBox::paintEvent()
 
     const int x = BaseClass::x0() + BaseClass::margin() + ::Default::BoxWidth + ::Default::TextMargin;
     const int y = BaseClass::y0() + BaseClass::margin();
-    BaseClass::textEngine().draw( kvs::Vec2( x, y + BaseClass::textEngine().height() ), m_caption, BaseClass::screen() );
+    const kvs::Vec2 p( x, y + BaseClass::textEngine().height() );
+    BaseClass::textEngine().draw( p, m_caption, BaseClass::screen() );
 
     BaseClass::render2D().end();
 }

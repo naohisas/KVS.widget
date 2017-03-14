@@ -126,34 +126,57 @@ void PushButton::draw_button()
     const GLfloat x1 = static_cast<GLfloat>( BaseClass::x1() - BaseClass::margin() );
     const GLfloat y0 = static_cast<GLfloat>( BaseClass::y0() + BaseClass::margin() );
     const GLfloat y1 = static_cast<GLfloat>( BaseClass::y1() - BaseClass::margin() );
-    const float w = x1 - x0;
-    const float h = y1 - y0;
+    const float width = x1 - x0;
+    const float height = y1 - y0;
 
     const float corner_radius = 4.0f;
     BaseClass::renderEngine().beginPath();
-    BaseClass::renderEngine().roundedRect( x0 + 1.0f, y0 + 1.0f, w - 2.0f, h - 2.0f, corner_radius - 1.0f );
-//    BaseClass::renderEngine().setFillColor( m_button_color );
-    BaseClass::renderEngine().setFillColor( m_pushed ? kvs::RGBColor( 60, 150, 250 ) : m_button_color );
-    BaseClass::renderEngine().fill();
+    {
+        const float x = x0 + 1.0f;
+        const float y = y0 + 1.0f;
+        const float w = width - 2.0f;
+        const float h = height - 2.0f;
+        const float r = corner_radius - 1.0f;
+        const kvs::RGBColor color = m_pushed ? kvs::RGBColor( 60, 150, 250 ) : m_button_color;
+        BaseClass::renderEngine().roundedRect( x, y, w, h, r );
+        BaseClass::renderEngine().setFillColor( color );
+        BaseClass::renderEngine().fill();
 
-    const kvs::RGBAColor top_color( m_pushed ? m_grad_bottom_color : m_grad_top_color, m_pushed ? 0.3f : 0.1f );
-    const kvs::RGBAColor bottom_color( m_grad_bottom_color, 0.2f );
-    NVGpaint bg = BaseClass::renderEngine().linearGradient( kvs::Vec2( x0, y0 ), kvs::Vec2( x0, y1 ), top_color, bottom_color );
-    BaseClass::renderEngine().setFillPaint( bg );
-    BaseClass::renderEngine().fill();
+        const kvs::RGBAColor top_color( m_pushed ? m_grad_bottom_color : m_grad_top_color, m_pushed ? 0.3f : 0.1f );
+        const kvs::RGBAColor bottom_color( m_grad_bottom_color, 0.2f );
+        const kvs::Vec2 p0( x0, y0 );
+        const kvs::Vec2 p1( x0, y1 );
+        NVGpaint bg = BaseClass::renderEngine().linearGradient( p0, p1, top_color, bottom_color );
+        BaseClass::renderEngine().setFillPaint( bg );
+        BaseClass::renderEngine().fill();
+    }
 
     const kvs::RGBAColor light_color( m_border_light_color, 0.6f );
     const kvs::RGBAColor dark_color( m_border_dark_color, 0.6f );
     BaseClass::renderEngine().beginPath();
-    BaseClass::renderEngine().roundedRect( x0 + 0.5f, y0 + ( m_pushed ? 0.5f : 1.5f ), w - 1.0f, h - 1.0f - ( m_pushed ? 0.0f : 1.0f ), corner_radius );
-    BaseClass::renderEngine().setStrokeColor( light_color );
-    BaseClass::renderEngine().setStrokeWidth( 1.0f );
-    BaseClass::renderEngine().stroke();
+    {
+        const float x = x0 + 0.5f;
+        const float y = y0 + ( m_pushed ? 0.5f : 1.5f );
+        const float w = width - 1.0f;
+        const float h = height - 1.0f - ( m_pushed ? 0.0f : 1.0f );
+        const float r = corner_radius;
+        BaseClass::renderEngine().roundedRect( x, y, w, h, r );
+        BaseClass::renderEngine().setStrokeColor( light_color );
+        BaseClass::renderEngine().setStrokeWidth( 1.0f );
+        BaseClass::renderEngine().stroke();
+    }
 
-    BaseClass::renderEngine().beginPath();
-    BaseClass::renderEngine().roundedRect( x0 + 0.5f, y0 + 0.5f, w - 1.0f, h - 2.0f, corner_radius );
-    BaseClass::renderEngine().setStrokeColor( dark_color );
-    BaseClass::renderEngine().stroke();
+//    BaseClass::renderEngine().beginPath();
+    {
+        const float x = x0 + 0.5f;
+        const float y = y0 + 0.5f;
+        const float w = width - 1.0f;
+        const float h = height - 2.0f;
+        const float r = corner_radius;
+        BaseClass::renderEngine().roundedRect( x, y, w, h, r );
+        BaseClass::renderEngine().setStrokeColor( dark_color );
+        BaseClass::renderEngine().stroke();
+    }
 
     BaseClass::renderEngine().endFrame();
 }
@@ -178,6 +201,7 @@ void PushButton::paintEvent()
     const kvs::Vec2 p( this->get_aligned_x(), this->get_aligned_y() + BaseClass::textEngine().height() );
     BaseClass::textEngine().font().setColor( kvs::RGBColor::Black() );
     BaseClass::textEngine().draw( p, m_caption, BaseClass::screen() );
+
     BaseClass::textEngine().font().setColor( kvs::RGBColor::White() );
     BaseClass::textEngine().draw( p + kvs::Vec2( 0.5, 1 ), m_caption, BaseClass::screen() );
 

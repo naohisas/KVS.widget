@@ -55,9 +55,9 @@ OrientationAxis::OrientationAxis( kvs::ScreenBase* screen ):
 OrientationAxis::OrientationAxis( kvs::ScreenBase* screen, const kvs::Scene* scene ):
     kvs::WidgetBase( screen ),
     m_object( scene->objectManager() ),
-    m_x_tag( "x" ),
-    m_y_tag( "y" ),
-    m_z_tag( "z" ),
+    m_x_tag( "X" ),
+    m_y_tag( "Y" ),
+    m_z_tag( "Z" ),
     m_x_axis_color( kvs::RGBColor( 180, 10, 10 ) ),
     m_y_axis_color( kvs::RGBColor( 10, 180, 10 ) ),
     m_z_axis_color( kvs::RGBColor( 10, 10, 180 ) ),
@@ -75,6 +75,7 @@ OrientationAxis::OrientationAxis( kvs::ScreenBase* screen, const kvs::Scene* sce
         kvs::EventBase::ResizeEvent );
 
     BaseClass::setMargin( 0 );
+    BaseClass::textEngine().font().setStyleToBold();
 }
 
 /*===========================================================================*/
@@ -86,12 +87,12 @@ OrientationAxis::OrientationAxis( kvs::ScreenBase* screen, const kvs::Scene* sce
 OrientationAxis::OrientationAxis( kvs::ScreenBase* screen, const kvs::ObjectBase* object ):
     kvs::WidgetBase( screen ),
     m_object( object ),
-    m_x_tag( "x" ),
-    m_y_tag( "y" ),
-    m_z_tag( "z" ),
-    m_x_axis_color( kvs::RGBColor( 200, 10, 10 ) ),
-    m_y_axis_color( kvs::RGBColor( 10, 200, 10 ) ),
-    m_z_axis_color( kvs::RGBColor( 10, 10, 200 ) ),
+    m_x_tag( "X" ),
+    m_y_tag( "Y" ),
+    m_z_tag( "Z" ),
+    m_x_axis_color( kvs::RGBColor( 180, 10, 10 ) ),
+    m_y_axis_color( kvs::RGBColor( 10, 180, 10 ) ),
+    m_z_axis_color( kvs::RGBColor( 10, 10, 180 ) ),
     m_axis_line_width( 1.0f ),
     m_box_color( kvs::RGBColor( 200, 200, 200 ) ),
     m_box_line_color( kvs::RGBColor( 10, 10, 10 ) ),
@@ -106,6 +107,7 @@ OrientationAxis::OrientationAxis( kvs::ScreenBase* screen, const kvs::ObjectBase
         kvs::EventBase::ResizeEvent );
 
     BaseClass::setMargin( 0 );
+    BaseClass::textEngine().font().setStyleToBold();
 }
 
 /*===========================================================================*/
@@ -182,7 +184,8 @@ void OrientationAxis::paintEvent()
     p2.loadIdentity();
     {
         // Viewing transformation.
-        const kvs::Vec3 eye( 0.0f, 0.0f, 12.0f );
+//        const kvs::Vec3 eye( 0.0f, 0.0f, 12.0f );
+        const kvs::Vec3 eye( 0.0f, 0.0f, 13.0f );
         const kvs::Vec3 center( 0.0f, 0.0f, 0.0f );
         const kvs::Vec3 up( 0.0f, 1.0f, 0.0f );
         kvs::OpenGL::SetLookAt( eye, center, up );
