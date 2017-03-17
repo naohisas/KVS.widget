@@ -8,42 +8,15 @@
 #include <kvs/glut/GLUT>
 
 
-// Default parameters.
-namespace { namespace Default
+// Constant variables
+namespace
 {
 const size_t AxisWindowSize = 80;
-} }
+}
 
 
 namespace kvs
 {
-
-/*
-OrientationAxis::OrientationAxis( kvs::ScreenBase* screen ):
-    kvs::WidgetBase( screen ),
-    m_object( screen->scene()->objectManager() ),
-    m_x_tag( "x" ),
-    m_y_tag( "y" ),
-    m_z_tag( "z" ),
-    m_x_axis_color( kvs::RGBColor( 200, 10, 10 ) ),
-    m_y_axis_color( kvs::RGBColor( 10, 200, 10 ) ),
-    m_z_axis_color( kvs::RGBColor( 10, 10, 200 ) ),
-    m_axis_line_width( 1.0f ),
-    m_box_color( kvs::RGBColor( 200, 200, 200 ) ),
-    m_box_line_color( kvs::RGBColor( 10, 10, 10 ) ),
-    m_box_line_width( 1.0f ),
-    m_enable_anti_aliasing( false ),
-    m_axis_type( OrientationAxis::CorneredAxis ),
-    m_box_type( OrientationAxis::NoneBox ),
-    m_projection_type( kvs::Camera::Perspective )
-{
-    BaseClass::setEventType(
-        kvs::EventBase::PaintEvent |
-        kvs::EventBase::ResizeEvent );
-
-    BaseClass::setMargin( 0 );
-}
-*/
 
 /*===========================================================================*/
 /**
@@ -184,7 +157,6 @@ void OrientationAxis::paintEvent()
     p2.loadIdentity();
     {
         // Viewing transformation.
-//        const kvs::Vec3 eye( 0.0f, 0.0f, 12.0f );
         const kvs::Vec3 eye( 0.0f, 0.0f, 13.0f );
         const kvs::Vec3 center( 0.0f, 0.0f, 0.0f );
         const kvs::Vec3 up( 0.0f, 1.0f, 0.0f );
@@ -238,7 +210,7 @@ void OrientationAxis::resizeEvent( int width, int height )
 /*===========================================================================*/
 int OrientationAxis::adjustedWidth()
 {
-    return ::Default::AxisWindowSize;
+    return ::AxisWindowSize;
 }
 
 /*===========================================================================*/
@@ -249,7 +221,7 @@ int OrientationAxis::adjustedWidth()
 /*===========================================================================*/
 int OrientationAxis::adjustedHeight()
 {
-    return ::Default::AxisWindowSize;
+    return ::AxisWindowSize;
 }
 
 /*===========================================================================*/

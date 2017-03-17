@@ -21,7 +21,7 @@ public:
 private:
     std::string m_caption; ///< caption
     int m_text_margin; ///< text margin
-    bool m_pushed;
+    bool m_pushed; ///< button status
     kvs::RGBColor m_button_color; ///< button color
     kvs::RGBColor m_grad_top_color;
     kvs::RGBColor m_grad_bottom_color;
@@ -40,7 +40,7 @@ public:
 
     void setCaption( const std::string caption ) { m_caption = caption; }
     void setTextMargin( const int margin ) { m_text_margin = margin; }
-    void setButtonColor( const kvs::RGBColor& color );
+    void setButtonColor( const kvs::RGBColor& color ) { m_button_color = color; }
 
 protected:
     int adjustedWidth();

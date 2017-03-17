@@ -7,15 +7,15 @@
 #include <kvs/IgnoreUnusedVariable>
 
 
-// Default parameters.
-namespace { namespace Default
+// Constant variables
+namespace
 {
 const double MinValue = 0.0f;
 const double MaxValue = 255.0f;
 const size_t LegendBarWidth = 150;
 const size_t LegendBarHeight = 30;
 const size_t LegendBarMargin = 10;
-} }
+}
 
 
 namespace kvs
@@ -36,13 +36,13 @@ LegendBar::LegendBar( kvs::ScreenBase* screen ):
         kvs::EventBase::PaintEvent |
         kvs::EventBase::ResizeEvent );
 
-    BaseClass::setMargin( ::Default::LegendBarMargin );
+    BaseClass::setMargin( ::LegendBarMargin );
     this->setCaption( "" );
     this->setOrientation( LegendBar::Horizontal );
     this->setNumberOfDivisions( 5 );
     this->setDivisionLineWidth( 1.0f );
     this->setDivisionLineColor( kvs::RGBColor( 0, 0, 0 ) );
-    this->setRange( ::Default::MinValue, ::Default::MaxValue );
+    this->setRange( ::MinValue, ::MaxValue );
     this->setBorderWidth( 1.0f );
     this->setBorderColor( kvs::RGBColor( 0, 0, 0 ) );
     this->disableAntiAliasing();
@@ -105,10 +105,12 @@ void LegendBar::paintEvent()
 
     const std::string min_value = kvs::String::ToString( m_min_value );
     const std::string max_value = kvs::String::ToString( m_max_value );
-    const int character_height = BaseClass::textEngine().height();
-    const int caption_height = ( m_caption.size() == 0 ) ? 0 : character_height + 5;
-    const int value_width = ( min_value.size() > max_value.size() ) ? BaseClass::textEngine().width( min_value ) : BaseClass::textEngine().width( max_value );
-    const int value_height = ( m_show_range_value ) ? character_height : 0;
+    const int text_height = BaseClass::textEngine().height();
+    const int min_text_width = BaseClass::textEngine().width( min_value );
+    const int max_text_width = BaseClass::textEngine().width( max_value );
+    const int caption_height = ( m_caption.size() == 0 ) ? 0 : text_height + 5;
+    const int value_width = ( min_value.size() > max_value.size() ) ? min_text_width : max_text_width;
+    const int value_height = ( m_show_range_value ) ? text_height : 0;
 
     // Draw the color bar.
     {
@@ -127,7 +129,8 @@ void LegendBar::paintEvent()
     {
         const int x = m_x + BaseClass::margin();
         const int y = m_y + BaseClass::margin();
-        BaseClass::textEngine().draw( kvs::Vec2( x, y + character_height ), m_caption, BaseClass::screen() );
+        const kvs::Vec2 p( x, y + text_height );
+        BaseClass::textEngine().draw( p, m_caption, BaseClass::screen() );
     }
 
     // Draw the values.
@@ -139,13 +142,15 @@ void LegendBar::paintEvent()
         {
             {
                 const int x = m_x + BaseClass::margin();
-                const int y = BaseClass::y1() - BaseClass::margin() - character_height;
-                BaseClass::textEngine().draw( kvs::Vec2( x, y + character_height ), min_value, BaseClass::screen() );
+                const int y = BaseClass::y1() - BaseClass::margin() - text_height;
+                const kvs::Vec2 p( x, y + text_height );
+                BaseClass::textEngine().draw( p, min_value, BaseClass::screen() );
             }
             {
-                const int x = BaseClass::x1() - BaseClass::margin() - BaseClass::textEngine().width( max_value );
-                const int y = BaseClass::y1() - BaseClass::margin() - character_height;
-                BaseClass::textEngine().draw( kvs::Vec2( x, y + character_height ), max_value, BaseClass::screen() );
+                const int x = BaseClass::x1() - BaseClass::margin() - max_text_width;
+                const int y = BaseClass::y1() - BaseClass::margin() - text_height;
+                const kvs::Vec2 p( x, y + text_height );
+                BaseClass::textEngine().draw( p, max_value, BaseClass::screen() );
             }
             break;
         }
@@ -154,12 +159,14 @@ void LegendBar::paintEvent()
             {
                 const int x = BaseClass::x1() - BaseClass::margin() - value_width;
                 const int y = m_y + BaseClass::margin() + caption_height;
-                BaseClass::textEngine().draw( kvs::Vec2( x, y + character_height ), min_value, BaseClass::screen() );
+                const kvs::Vec2 p( x, y + text_height );
+                BaseClass::textEngine().draw( p, min_value, BaseClass::screen() );
             }
             {
                 const int x = BaseClass::x1() - BaseClass::margin() - value_width;
-                const int y = BaseClass::y1() - BaseClass::margin() - character_height;
-                BaseClass::textEngine().draw( kvs::Vec2( x, y + character_height ), max_value, BaseClass::screen() );
+                const int y = BaseClass::y1() - BaseClass::margin() - text_height;
+                const kvs::Vec2 p( x, y + text_height );
+                BaseClass::textEngine().draw( p, max_value, BaseClass::screen() );
             }
             break;
         }
@@ -198,16 +205,18 @@ int LegendBar::adjustedWidth()
     case LegendBar::Horizontal:
     {
         width = BaseClass::textEngine().width( m_caption ) + BaseClass::margin() * 2;
-        width = kvs::Math::Max( width, ::Default::LegendBarWidth );
+        width = kvs::Math::Max( width, ::LegendBarWidth );
         break;
     }
     case LegendBar::Vertical:
     {
-        std::string min_value = kvs::String::ToString( m_min_value );
-        std::string max_value = kvs::String::ToString( m_max_value );
-        width = ( min_value.size() > max_value.size() ) ? BaseClass::textEngine().width( min_value ) : BaseClass::textEngine().width( max_value );
+        const std::string min_value = kvs::String::ToString( m_min_value );
+        const std::string max_value = kvs::String::ToString( m_max_value );
+        const size_t min_text_width = BaseClass::textEngine().width( min_value );
+        const size_t max_text_width = BaseClass::textEngine().width( max_value );
+        width = ( min_value.size() > max_value.size() ) ? min_text_width : max_text_width;
         width += BaseClass::margin() * 2;
-        width = kvs::Math::Max( width, ::Default::LegendBarHeight );
+        width = kvs::Math::Max( width, ::LegendBarHeight );
         break;
     }
     default: break;
@@ -225,13 +234,14 @@ int LegendBar::adjustedWidth()
 int LegendBar::adjustedHeight()
 {
     size_t height = 0;
+    const size_t text_height = BaseClass::textEngine().height();
     switch( m_orientation )
     {
     case LegendBar::Horizontal:
-        height = ::Default::LegendBarHeight + ( BaseClass::textEngine().height() + BaseClass::margin() ) * 2;
+        height = ::LegendBarHeight + ( text_height + BaseClass::margin() ) * 2;
         break;
     case LegendBar::Vertical:
-        height = ::Default::LegendBarWidth + BaseClass::textEngine().height() + BaseClass::margin() * 2;
+        height = ::LegendBarWidth + text_height + BaseClass::margin() * 2;
         break;
     default: break;
     }
@@ -246,10 +256,10 @@ int LegendBar::adjustedHeight()
 /*===========================================================================*/
 void LegendBar::create_texture()
 {
-    const size_t      nchannels  = 3;
-    const size_t      width  = m_colormap.resolution();
-    const size_t      height = 1;
-    const kvs::UInt8* data   = m_colormap.table().data();
+    const size_t nchannels = 3;
+    const size_t width = m_colormap.resolution();
+    const size_t height = 1;
+    const kvs::UInt8* data = m_colormap.table().data();
 
     m_texture.release();
     m_texture.setPixelFormat( nchannels, sizeof( kvs::UInt8 ) );

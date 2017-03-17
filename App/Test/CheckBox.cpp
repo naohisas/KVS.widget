@@ -8,17 +8,18 @@
 #include <kvs/MouseEvent>
 
 
-// Default parameters.
-namespace { namespace Default
+// Constant variables
+namespace
 {
 const int TextMargin = 10; // indenting space for the text
 const int BoxWidth = 15;
 const int BoxHeight = 15;
 const kvs::RGBColor BoxColor = kvs::RGBColor( 200, 200, 200 );
-} }
+}
 
 // Instance counter.
 static int InstanceCounter = 0;
+
 
 namespace kvs
 {
@@ -52,15 +53,15 @@ void CheckBox::draw_box()
 {
     BaseClass::renderEngine().beginFrame( screen()->width(), screen()->height() );
 
-    const int dy = BaseClass::textEngine().height() - ::Default::BoxHeight;
+    const int dy = BaseClass::textEngine().height() - ::BoxHeight;
     const GLfloat x0 = static_cast<GLfloat>( BaseClass::x0() + BaseClass::margin() );
-    const GLfloat x1 = static_cast<GLfloat>( x0 + ::Default::BoxWidth );
+    const GLfloat x1 = static_cast<GLfloat>( x0 + ::BoxWidth );
     const GLfloat y0 = static_cast<GLfloat>( BaseClass::y0() + BaseClass::margin() + dy );
-    const GLfloat y1 = static_cast<GLfloat>( y0 + ::Default::BoxHeight );
+    const GLfloat y1 = static_cast<GLfloat>( y0 + ::BoxHeight );
     const float w = x1 - x0;
     const float h = y1 - y0;
 
-    const kvs::RGBColor color = m_state ? kvs::RGBColor( 60, 150, 250 ) : ::Default::BoxColor;
+    const kvs::RGBColor color = m_state ? kvs::RGBColor( 60, 150, 250 ) : ::BoxColor;
     BaseClass::renderEngine().beginPath();
     BaseClass::renderEngine().roundedRect( x0, y0, w, h, 3 );
     BaseClass::renderEngine().setFillColor( color );
@@ -89,7 +90,7 @@ void CheckBox::draw_box()
 /*===========================================================================*/
 void CheckBox::draw_mark()
 {
-    const int dy = BaseClass::textEngine().height() - ::Default::BoxHeight;
+    const int dy = BaseClass::textEngine().height() - ::BoxHeight;
     const GLfloat x0 = static_cast<GLfloat>( BaseClass::x0() + BaseClass::margin() );
     const GLfloat y0 = static_cast<GLfloat>( BaseClass::y0() + BaseClass::margin() + dy );
     const kvs::RGBColor color = BaseClass::textEngine().font().color();
@@ -107,7 +108,7 @@ void CheckBox::draw_mark()
 int CheckBox::adjustedWidth()
 {
     const size_t text_width = BaseClass::textEngine().width( m_caption );
-    return ::Default::BoxWidth + text_width + ::Default::TextMargin + BaseClass::margin() * 2;
+    return ::BoxWidth + text_width + ::TextMargin + BaseClass::margin() * 2;
 }
 
 /*===========================================================================*/
@@ -131,11 +132,11 @@ int CheckBox::adjustedHeight()
 /*===========================================================================*/
 bool CheckBox::contains( int x, int y )
 {
-    const int dy = BaseClass::textEngine().height() - ::Default::BoxHeight;
+    const int dy = BaseClass::textEngine().height() - ::BoxHeight;
     const GLfloat x0 = static_cast<GLfloat>( BaseClass::x0() + BaseClass::margin() );
-    const GLfloat x1 = static_cast<GLfloat>( x0 + ::Default::BoxWidth );
+    const GLfloat x1 = static_cast<GLfloat>( x0 + ::BoxWidth );
     const GLfloat y0 = static_cast<GLfloat>( BaseClass::y0() + BaseClass::margin() + dy );
-    const GLfloat y1 = static_cast<GLfloat>( y0 + ::Default::BoxHeight );
+    const GLfloat y1 = static_cast<GLfloat>( y0 + ::BoxHeight );
 
     return ( x0 <= x ) && ( x <= x1 ) && ( y0 <= y ) && ( y <= y1 );
 }
@@ -158,7 +159,7 @@ void CheckBox::paintEvent()
     this->draw_box();
     if ( this->state() ) { this->draw_mark(); }
 
-    const int x = BaseClass::x0() + BaseClass::margin() + ::Default::BoxWidth + ::Default::TextMargin;
+    const int x = BaseClass::x0() + BaseClass::margin() + ::BoxWidth + ::TextMargin;
     const int y = BaseClass::y0() + BaseClass::margin();
     const kvs::Vec2 p( x, y + BaseClass::textEngine().height() );
     BaseClass::textEngine().draw( p, m_caption, BaseClass::screen() );

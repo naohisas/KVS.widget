@@ -53,24 +53,14 @@ PushButton::PushButton( kvs::ScreenBase* screen ):
 
 /*===========================================================================*/
 /**
- *  @brief  Sets a button color.
- *  @param  color [in] button color
- */
-/*===========================================================================*/
-void PushButton::setButtonColor( const kvs::RGBColor& color )
-{
-    m_button_color = color;
-}
-
-/*===========================================================================*/
-/**
  *  @brief  Returns the fitted width.
  *  @return fitted width
  */
 /*===========================================================================*/
 int PushButton::adjustedWidth()
 {
-    return BaseClass::textEngine().width( m_caption ) + ( m_text_margin + BaseClass::margin() ) * 2;
+    const size_t text_width = BaseClass::textEngine().width( m_caption );
+    return text_width + ( m_text_margin + BaseClass::margin() ) * 2;
 }
 
 /*===========================================================================*/
@@ -96,7 +86,8 @@ int PushButton::get_aligned_x()
     // Centering the caption along the x axis.
     const GLfloat x0 = static_cast<GLfloat>( BaseClass::x0() + BaseClass::margin() );
     const GLfloat x1 = static_cast<GLfloat>( BaseClass::x1() - BaseClass::margin() );
-    return static_cast<int>( x0 + ( x1 - x0 - BaseClass::textEngine().width( m_caption ) ) * 0.5f + 0.5f );
+    const size_t text_width = BaseClass::textEngine().width( m_caption );
+    return static_cast<int>( x0 + ( x1 - x0 - text_width ) * 0.5f + 0.5f );
 }
 
 /*===========================================================================*/
@@ -110,7 +101,8 @@ int PushButton::get_aligned_y()
     // Centering the caption along the y axis.
     const GLfloat y0 = static_cast<GLfloat>( BaseClass::y0() + BaseClass::margin() );
     const GLfloat y1 = static_cast<GLfloat>( BaseClass::y1() - BaseClass::margin() );
-    return static_cast<int>( y0 + ( y1 - y0 - BaseClass::textEngine().height() ) * 0.5f + 0.5f );
+    const size_t text_height = BaseClass::textEngine().height();
+    return static_cast<int>( y0 + ( y1 - y0 - text_height ) * 0.5f + 0.5f );
 }
 
 /*===========================================================================*/
@@ -151,8 +143,6 @@ void PushButton::draw_button()
         BaseClass::renderEngine().fill();
     }
 
-    const kvs::RGBAColor light_color( m_border_light_color, 0.6f );
-    const kvs::RGBAColor dark_color( m_border_dark_color, 0.6f );
     BaseClass::renderEngine().beginPath();
     {
         const float x = x0 + 0.5f;
@@ -160,19 +150,20 @@ void PushButton::draw_button()
         const float w = width - 1.0f;
         const float h = height - 1.0f - ( m_pushed ? 0.0f : 1.0f );
         const float r = corner_radius;
+        const kvs::RGBAColor light_color( m_border_light_color, 0.6f );
         BaseClass::renderEngine().roundedRect( x, y, w, h, r );
         BaseClass::renderEngine().setStrokeColor( light_color );
         BaseClass::renderEngine().setStrokeWidth( 1.0f );
         BaseClass::renderEngine().stroke();
     }
 
-//    BaseClass::renderEngine().beginPath();
     {
         const float x = x0 + 0.5f;
         const float y = y0 + 0.5f;
         const float w = width - 1.0f;
         const float h = height - 2.0f;
         const float r = corner_radius;
+        const kvs::RGBAColor dark_color( m_border_dark_color, 0.6f );
         BaseClass::renderEngine().roundedRect( x, y, w, h, r );
         BaseClass::renderEngine().setStrokeColor( dark_color );
         BaseClass::renderEngine().stroke();
@@ -198,12 +189,14 @@ void PushButton::paintEvent()
 
     this->draw_button();
 
-    const kvs::Vec2 p( this->get_aligned_x(), this->get_aligned_y() + BaseClass::textEngine().height() );
+    const size_t text_height = BaseClass::textEngine().height();
+    const kvs::Vec2 p( this->get_aligned_x(), this->get_aligned_y() + text_height );
     BaseClass::textEngine().font().setColor( kvs::RGBColor::Black() );
     BaseClass::textEngine().draw( p, m_caption, BaseClass::screen() );
 
+    const kvs::Vec2 d( 0.5, 1 );
     BaseClass::textEngine().font().setColor( kvs::RGBColor::White() );
-    BaseClass::textEngine().draw( p + kvs::Vec2( 0.5, 1 ), m_caption, BaseClass::screen() );
+    BaseClass::textEngine().draw( p + d, m_caption, BaseClass::screen() );
 
     BaseClass::render2D().end();
 }

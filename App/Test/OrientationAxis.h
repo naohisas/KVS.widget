@@ -54,8 +54,6 @@ private:
     ProjectionType m_projection_type; ///< projection type
 
 public:
-//    OrientationAxis( kvs::ScreenBase* screen );
-
     OrientationAxis( kvs::ScreenBase* screen, const kvs::Scene* scene );
     OrientationAxis( kvs::ScreenBase* screen, const kvs::ObjectBase* object );
     virtual ~OrientationAxis();

@@ -55,6 +55,8 @@ public:
 
     void setCaption( const std::string& caption ) { m_caption = caption; }
     void setOrientation( const OrientationType orientation ) { m_orientation = orientation; }
+    void setOrientationToHorizontal() { this->setOrientation( Horizontal ); }
+    void setOrientationToVertical() { this->setOrientation( Vertical ); }
     void setNumberOfDivisions( const size_t ndivisions ) { m_ndivisions = ndivisions; }
     void setDivisionLineWidth( const float width ) { m_division_line_width = width; }
     void setDivisionLineColor( const kvs::RGBColor& color ) { m_division_line_color = color; }
@@ -62,8 +64,9 @@ public:
     void setBorderWidth( const float width ) { m_border_width = width; }
     void setBorderColor( const kvs::RGBColor& color ) { m_border_color = color; }
     void setColorMap( const kvs::ColorMap& colormap );
-    void enableAntiAliasing() { m_enable_anti_aliasing = true; }
-    void disableAntiAliasing() { m_enable_anti_aliasing = false; }
+    void setEnabledAntiAliasing( bool enable ) { m_enable_anti_aliasing = enable; }
+    void enableAntiAliasing() { this->setEnabledAntiAliasing( true ); }
+    void disableAntiAliasing() { this->setEnabledAntiAliasing( false ); }
     void showRange() { m_show_range_value = true; }
     void hideRange() { m_show_range_value = false; }
 

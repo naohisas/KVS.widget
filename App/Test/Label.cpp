@@ -6,11 +6,11 @@
 #include <kvs/EventBase>
 
 
-// Default parameters.
-namespace { namespace Default
+// Constant variables
+namespace
 {
 const size_t MaxLineLength = 255;
-} }
+}
 
 
 namespace kvs
@@ -40,7 +40,7 @@ void Label::setText( const char* text, ... )
 {
     m_text.clear();
 
-    char buffer[ ::Default::MaxLineLength ];
+    char buffer[ ::MaxLineLength ];
 
     va_list args;
     va_start( args, text );
@@ -58,7 +58,7 @@ void Label::setText( const char* text, ... )
 /*==========================================================================*/
 void Label::addText( const char* text, ... )
 {
-    char buffer[ ::Default::MaxLineLength ];
+    char buffer[ ::MaxLineLength ];
 
     va_list args;
     va_start( args, text );

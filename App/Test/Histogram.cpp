@@ -9,15 +9,15 @@
 #include <kvs/OpenGL>
 
 
-// Default parameters.
-namespace { namespace Default
+// Constant variables
+namespace
 {
 const size_t Margin = 10;
 const size_t Width = 350;
 const size_t Height = 50;
 const kvs::RGBColor RectColor = kvs::RGBColor( 255, 255, 255 );
 const kvs::RGBColor RectEdgeColor = kvs::RGBColor( 230, 230, 230 );
-} }
+}
 
 // Instance counter.
 static int InstanceCounter = 0;
@@ -57,12 +57,12 @@ Histogram::Histogram( kvs::ScreenBase* screen ):
         kvs::EventBase::MouseMoveEvent |
         kvs::EventBase::MouseReleaseEvent );
 
-    BaseClass::setMargin( ::Default::Margin );
+    BaseClass::setMargin( ::Margin );
     this->setCaption( "Histogram " + kvs::String::ToString( ::InstanceCounter++ ) );
     this->setNumberOfBins( 256 );
 
-    m_upper_edge_color = BaseClass::darkenedColor( ::Default::RectColor, 0.6f );
-    m_lower_edge_color = ::Default::RectEdgeColor;
+    m_upper_edge_color = BaseClass::darkenedColor( ::RectColor, 0.6f );
+    m_lower_edge_color = ::RectEdgeColor;
 }
 
 /*===========================================================================*/
@@ -97,6 +97,11 @@ void Histogram::create( const kvs::ImageObject* image )
     m_table.create( image );
 }
 
+/*===========================================================================*/
+/**
+ *  @brief  Draw histgram.
+ */
+/*===========================================================================*/
 void Histogram::paintEvent()
 {
     this->screenUpdated();
@@ -109,19 +114,21 @@ void Histogram::paintEvent()
 
     if ( !m_texture.isValid() ) this->create_texture();
 
-    // Draw the caption.
+    // Draw caption.
     {
         const int x = BaseClass::x0() + BaseClass::margin();
         const int y = BaseClass::y0() + BaseClass::margin();
-        BaseClass::textEngine().draw( kvs::Vec2( x, y + BaseClass::textEngine().height() ), m_caption, BaseClass::screen() );
+        const kvs::Vec2 p( x, y + BaseClass::textEngine().height() );
+        BaseClass::textEngine().draw( p, m_caption, BaseClass::screen() );
     }
 
     // Draw palette.
     {
+        const int text_height = BaseClass::textEngine().height();
         const int x = BaseClass::x0() + BaseClass::margin();
-        const int y = BaseClass::y0() + BaseClass::margin() + BaseClass::textEngine().height() + 5;
+        const int y = BaseClass::y0() + BaseClass::margin() + text_height + 5;
         const int width = BaseClass::width() - BaseClass::margin() * 2;
-        const int height = BaseClass::height() - BaseClass::margin() * 2 - BaseClass::textEngine().height();
+        const int height = BaseClass::height() - BaseClass::margin() * 2 - text_height;
         m_palette.setGeometry( x, y, width, height );
     }
 
@@ -130,6 +137,13 @@ void Histogram::paintEvent()
     BaseClass::render2D().end();
 }
 
+/*===========================================================================*/
+/**
+ *  @brief  Resize event.
+ *  @param  width [in] screen width
+ *  @param  height [in] screen height
+ */
+/*===========================================================================*/
 void Histogram::resizeEvent( int width, int height )
 {
     kvs::IgnoreUnusedVariable( width );
@@ -138,6 +152,12 @@ void Histogram::resizeEvent( int width, int height )
     this->screenResized();
 }
 
+/*===========================================================================*/
+/**
+ *  @brief  Mouse press event.
+ *  @param  event [in] mouse event information
+ */
+/*===========================================================================*/
 void Histogram::mousePressEvent( kvs::MouseEvent* event )
 {
     if ( !BaseClass::isShown() ) return;
@@ -161,6 +181,12 @@ void Histogram::mousePressEvent( kvs::MouseEvent* event )
     }
 }
 
+/*===========================================================================*/
+/**
+ *  @brief  Mouse move event.
+ *  @param  event [in] mouse event information
+ */
+/*===========================================================================*/
 void Histogram::mouseMoveEvent( kvs::MouseEvent* event )
 {
     if ( !BaseClass::isShown() ) return;
@@ -185,6 +211,12 @@ void Histogram::mouseMoveEvent( kvs::MouseEvent* event )
     }
 }
 
+/*===========================================================================*/
+/**
+ *  @brief  Mouse release event.
+ *  @param  event [in] mouse event information
+ */
+/*===========================================================================*/
 void Histogram::mouseReleaseEvent( kvs::MouseEvent* event )
 {
     kvs::IgnoreUnusedVariable( event );
@@ -200,20 +232,33 @@ void Histogram::mouseReleaseEvent( kvs::MouseEvent* event )
     }
 }
 
+/*===========================================================================*/
+/**
+ *  @brief  Returns adjusted width.
+ *  @return adjusted width
+ */
+/*===========================================================================*/
 int Histogram::adjustedWidth()
 {
-    const size_t width = BaseClass::textEngine().width( m_caption ) + BaseClass::margin() * 2;
-    return kvs::Math::Max( width, ::Default::Width );
+    const size_t text_width = BaseClass::textEngine().width( m_caption );
+    const size_t width = text_width + BaseClass::margin() * 2;
+    return kvs::Math::Max( width, ::Width );
 }
 
+/*===========================================================================*/
+/**
+ *  @brief  Returns adjusted height.
+ *  @return adjusted height
+ */
+/*===========================================================================*/
 int Histogram::adjustedHeight()
 {
-    return ::Default::Height + BaseClass::textEngine().height() + BaseClass::margin() * 2;
+    return ::Height + BaseClass::textEngine().height() + BaseClass::margin() * 2;
 }
 
 /*==========================================================================*/
 /**
- *  @brief  Draws the frequency distribution graph.
+ *  @brief  Draws frequency distribution graph.
  */
 /*==========================================================================*/
 void Histogram::draw_palette()
@@ -228,9 +273,7 @@ void Histogram::draw_palette()
     const int y0 = m_palette.y0();
     const int y1 = m_palette.y1();
     kvs::OpenGL::Begin( GL_QUADS );
-//    kvs::OpenGL::Color( kvs::RGBColor( 240, 240, 240 ) );
     kvs::OpenGL::Color( kvs::RGBColor( 230, 230, 230 ) );
-//    kvs::OpenGL::Color( kvs::RGBColor( 50, 50, 50 ) );
     kvs::OpenGL::Vertex( x0, y0 );
     kvs::OpenGL::Vertex( x1, y0 );
     kvs::OpenGL::Vertex( x1, y1 );

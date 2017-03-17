@@ -59,10 +59,7 @@ void CheckBoxGroup::show()
 
     std::list<kvs::CheckBox*>::iterator box = m_boxes.begin();
     std::list<kvs::CheckBox*>::iterator last = m_boxes.end();
-    while ( box != last )
-    {
-        (*box++)->show();
-    }
+    while ( box != last ) { (*box++)->show(); }
 }
 
 /*===========================================================================*/
@@ -76,10 +73,7 @@ void CheckBoxGroup::hide()
 
     std::list<kvs::CheckBox*>::iterator box = m_boxes.begin();
     std::list<kvs::CheckBox*>::iterator last = m_boxes.end();
-    while ( box != last )
-    {
-        (*box++)->hide();
-    }
+    while ( box != last ) { (*box++)->hide(); }
 }
 
 /*===========================================================================*/
