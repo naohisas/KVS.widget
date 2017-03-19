@@ -7,8 +7,8 @@
 #include "CheckBoxGroup.h"
 #include "RadioButton.h"
 #include "RadioButtonGroup.h"
-#include "LegendBar.h"
-#include "Histogram.h"
+#include "ColorMapBar.h"
+#include "HistogramBar.h"
 #include "OrientationAxis.h"
 #include <KVS.widget/Lib/TextEngine.h>
 #include <KVS.widget/Lib/Font.h>
@@ -144,17 +144,17 @@ int main( int argc, char** argv )
     radio_button_group.add( &radio_button2 );
     radio_button_group.add( &radio_button3 );
 
-    kvs::LegendBar legend( &screen );
-    legend.setMargin( 10 );
-    legend.setCaption( "Colormap" );
-    legend.setX( slider.x() );
-    legend.setY( radio_button3.y() + radio_button3.height() );
-    legend.show();
+    kvs::ColorMapBar colormap( &screen );
+    colormap.setMargin( 10 );
+    colormap.setCaption( "Colormap" );
+    colormap.setX( slider.x() );
+    colormap.setY( radio_button3.y() + radio_button3.height() );
+    colormap.show();
 
-    kvs::Histogram histogram( &screen );
+    kvs::HistogramBar histogram( &screen );
     histogram.setMargin( 10 );
     histogram.setX( slider.x() );
-    histogram.setY( legend.y() + legend.height() );
+    histogram.setY( colormap.y() + colormap.height() );
     histogram.setWidth( 150 );
     histogram.setHeight( 70 );
     histogram.setIgnoreValue( 0 );

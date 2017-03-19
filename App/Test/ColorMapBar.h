@@ -15,7 +15,7 @@ namespace kvs
  *  @brief  Legend bar class.
  */
 /*===========================================================================*/
-class LegendBar : public kvs::WidgetBase
+class ColorMapBar : public kvs::WidgetBase
 {
 public:
     typedef kvs::WidgetBase BaseClass;
@@ -43,8 +43,8 @@ private:
     bool m_texture_downloaded; ///< check flag for texture
 
 public:
-    LegendBar( kvs::ScreenBase* screen = 0 );
-    virtual ~LegendBar();
+    ColorMapBar( kvs::ScreenBase* screen = 0 );
+    virtual ~ColorMapBar();
 
     virtual void screenUpdated(){};
     virtual void screenResized(){};

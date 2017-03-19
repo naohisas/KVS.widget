@@ -1,4 +1,4 @@
-#include "LegendBar.h"
+#include "ColorMapBar.h"
 #include <kvs/Type>
 #include <kvs/Message>
 #include <kvs/String>
@@ -12,9 +12,9 @@ namespace
 {
 const double MinValue = 0.0f;
 const double MaxValue = 255.0f;
-const size_t LegendBarWidth = 150;
-const size_t LegendBarHeight = 30;
-const size_t LegendBarMargin = 10;
+const size_t ColorMapBarWidth = 150;
+const size_t ColorMapBarHeight = 30;
+const size_t ColorMapBarMargin = 10;
 }
 
 
@@ -23,11 +23,11 @@ namespace kvs
 
 /*===========================================================================*/
 /**
- *  @brief  Constructs a new LegendBar class.
+ *  @brief  Constructs a new ColorMapBar class.
  *  @param  screen [in] pointer to the parent screen
  */
 /*===========================================================================*/
-LegendBar::LegendBar( kvs::ScreenBase* screen ):
+ColorMapBar::ColorMapBar( kvs::ScreenBase* screen ):
     kvs::WidgetBase( screen ),
     m_show_range_value( true ),
     m_texture_downloaded( false )
@@ -36,9 +36,9 @@ LegendBar::LegendBar( kvs::ScreenBase* screen ):
         kvs::EventBase::PaintEvent |
         kvs::EventBase::ResizeEvent );
 
-    BaseClass::setMargin( ::LegendBarMargin );
+    BaseClass::setMargin( ::ColorMapBarMargin );
     this->setCaption( "" );
-    this->setOrientation( LegendBar::Horizontal );
+    this->setOrientation( ColorMapBar::Horizontal );
     this->setNumberOfDivisions( 5 );
     this->setDivisionLineWidth( 1.0f );
     this->setDivisionLineColor( kvs::RGBColor( 0, 0, 0 ) );
@@ -53,10 +53,10 @@ LegendBar::LegendBar( kvs::ScreenBase* screen ):
 
 /*===========================================================================*/
 /**
- *  @brief  Destroys the LegendBar class.
+ *  @brief  Destroys the ColorMapBar class.
  */
 /*===========================================================================*/
-LegendBar::~LegendBar()
+ColorMapBar::~ColorMapBar()
 {
 }
 
@@ -66,7 +66,7 @@ LegendBar::~LegendBar()
  *  @param  colormap [in] color map
  */
 /*===========================================================================*/
-void LegendBar::setColorMap( const kvs::ColorMap& colormap )
+void ColorMapBar::setColorMap( const kvs::ColorMap& colormap )
 {
     // Deep copy.
     kvs::ColorMap::Table colormap_table( colormap.table().data(), colormap.table().size() );
@@ -87,7 +87,7 @@ void LegendBar::setColorMap( const kvs::ColorMap& colormap )
  *  @brief  Paint event.
  */
 /*===========================================================================*/
-void LegendBar::paintEvent()
+void ColorMapBar::paintEvent()
 {
     this->screenUpdated();
 
@@ -114,8 +114,8 @@ void LegendBar::paintEvent()
 
     // Draw the color bar.
     {
-        const int w = ( m_orientation == LegendBar::Vertical ) ? value_width + 5 : 0;
-        const int h = ( m_orientation == LegendBar::Vertical ) ? 0 : value_height;
+        const int w = ( m_orientation == ColorMapBar::Vertical ) ? value_width + 5 : 0;
+        const int h = ( m_orientation == ColorMapBar::Vertical ) ? 0 : value_height;
         const int x = m_x + BaseClass::margin();
         const int y = m_y + BaseClass::margin() + caption_height;
         const int width = m_width - BaseClass::margin() * 2 - w;
@@ -138,7 +138,7 @@ void LegendBar::paintEvent()
     {
         switch ( m_orientation )
         {
-        case LegendBar::Horizontal:
+        case ColorMapBar::Horizontal:
         {
             {
                 const int x = m_x + BaseClass::margin();
@@ -154,7 +154,7 @@ void LegendBar::paintEvent()
             }
             break;
         }
-        case LegendBar::Vertical:
+        case ColorMapBar::Vertical:
         {
             {
                 const int x = BaseClass::x1() - BaseClass::margin() - value_width;
@@ -184,7 +184,7 @@ void LegendBar::paintEvent()
  *  @param  height [in] screen height
  */
 /*===========================================================================*/
-void LegendBar::resizeEvent( int width, int height )
+void ColorMapBar::resizeEvent( int width, int height )
 {
     kvs::IgnoreUnusedVariable( width );
     kvs::IgnoreUnusedVariable( height );
@@ -197,18 +197,18 @@ void LegendBar::resizeEvent( int width, int height )
  *  @return screen width
  */
 /*===========================================================================*/
-int LegendBar::adjustedWidth()
+int ColorMapBar::adjustedWidth()
 {
     size_t width = 0;
     switch ( m_orientation )
     {
-    case LegendBar::Horizontal:
+    case ColorMapBar::Horizontal:
     {
         width = BaseClass::textEngine().width( m_caption ) + BaseClass::margin() * 2;
-        width = kvs::Math::Max( width, ::LegendBarWidth );
+        width = kvs::Math::Max( width, ::ColorMapBarWidth );
         break;
     }
-    case LegendBar::Vertical:
+    case ColorMapBar::Vertical:
     {
         const std::string min_value = kvs::String::ToString( m_min_value );
         const std::string max_value = kvs::String::ToString( m_max_value );
@@ -216,7 +216,7 @@ int LegendBar::adjustedWidth()
         const size_t max_text_width = BaseClass::textEngine().width( max_value );
         width = ( min_value.size() > max_value.size() ) ? min_text_width : max_text_width;
         width += BaseClass::margin() * 2;
-        width = kvs::Math::Max( width, ::LegendBarHeight );
+        width = kvs::Math::Max( width, ::ColorMapBarHeight );
         break;
     }
     default: break;
@@ -231,17 +231,17 @@ int LegendBar::adjustedWidth()
  *  @return screen height
  */
 /*===========================================================================*/
-int LegendBar::adjustedHeight()
+int ColorMapBar::adjustedHeight()
 {
     size_t height = 0;
     const size_t text_height = BaseClass::textEngine().height();
     switch( m_orientation )
     {
-    case LegendBar::Horizontal:
-        height = ::LegendBarHeight + ( text_height + BaseClass::margin() ) * 2;
+    case ColorMapBar::Horizontal:
+        height = ::ColorMapBarHeight + ( text_height + BaseClass::margin() ) * 2;
         break;
-    case LegendBar::Vertical:
-        height = ::LegendBarWidth + text_height + BaseClass::margin() * 2;
+    case ColorMapBar::Vertical:
+        height = ::ColorMapBarWidth + text_height + BaseClass::margin() * 2;
         break;
     default: break;
     }
@@ -254,7 +254,7 @@ int LegendBar::adjustedHeight()
  *  @brief  Create a texture for the color map.
  */
 /*===========================================================================*/
-void LegendBar::create_texture()
+void ColorMapBar::create_texture()
 {
     const size_t nchannels = 3;
     const size_t width = m_colormap.resolution();
@@ -273,7 +273,7 @@ void LegendBar::create_texture()
  *  @brief  Release the texture for the color map.
  */
 /*===========================================================================*/
-void LegendBar::release_texture()
+void ColorMapBar::release_texture()
 {
     m_texture.release();
 }
@@ -287,7 +287,7 @@ void LegendBar::release_texture()
  *  @param  height [in] bar height
  */
 /*===========================================================================*/
-void LegendBar::draw_color_bar( const int x, const int y, const int width, const int height )
+void ColorMapBar::draw_color_bar( const int x, const int y, const int width, const int height )
 {
     kvs::OpenGL::WithPushedAttrib attrib( GL_ALL_ATTRIB_BITS );
     attrib.disable( GL_BLEND );
@@ -298,7 +298,7 @@ void LegendBar::draw_color_bar( const int x, const int y, const int width, const
     kvs::Texture::Binder binder( m_texture );
     switch ( m_orientation )
     {
-    case LegendBar::Horizontal:
+    case ColorMapBar::Horizontal:
     {
         kvs::OpenGL::Begin( GL_QUADS );
         kvs::OpenGL::TexCoordVertex( kvs::Vec2( 0.0f, 1.0f ), kvs::Vec2( x,         y ) );
@@ -308,7 +308,7 @@ void LegendBar::draw_color_bar( const int x, const int y, const int width, const
         kvs::OpenGL::End();
         break;
     }
-    case LegendBar::Vertical:
+    case ColorMapBar::Vertical:
     {
         kvs::OpenGL::Begin( GL_QUADS );
         kvs::OpenGL::TexCoordVertex( kvs::Vec2( 0.0f, 0.0f ), kvs::Vec2( x,         y ) );
@@ -331,7 +331,7 @@ void LegendBar::draw_color_bar( const int x, const int y, const int width, const
  *  @param  height [in] height
  */
 /*===========================================================================*/
-void LegendBar::draw_border( const int x, const int y, const int width, const int height )
+void ColorMapBar::draw_border( const int x, const int y, const int width, const int height )
 {
     BaseClass::renderEngine().beginFrame( screen()->width(), screen()->height() );
 

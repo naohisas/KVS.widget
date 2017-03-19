@@ -18,10 +18,10 @@ class MouseEvent;
 
 /*===========================================================================*/
 /**
- *  @brief  Histogram class.
+ *  @brief  HistogramBar class.
  */
 /*===========================================================================*/
-class Histogram : public kvs::WidgetBase
+class HistogramBar : public kvs::WidgetBase
 {
 public:
     typedef kvs::WidgetBase BaseClass;
@@ -38,8 +38,8 @@ private:
     kvs::Vector2i m_previous_position; ///< mouse previous position
 
 public:
-    Histogram( kvs::ScreenBase* screen = 0 );
-    virtual ~Histogram();
+    HistogramBar( kvs::ScreenBase* screen = 0 );
+    virtual ~HistogramBar();
 
     virtual void screenUpdated() {}
     virtual void screenResized() {}

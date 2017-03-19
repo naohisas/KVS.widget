@@ -1,4 +1,4 @@
-#include "Histogram.h"
+#include "HistogramBar.h"
 #include <kvs/StructuredVolumeObject>
 #include <kvs/String>
 #include <kvs/MouseButton>
@@ -40,11 +40,11 @@ namespace kvs
 
 /*===========================================================================*/
 /**
- *  @brief  Constructs a new Histogram class.
+ *  @brief  Constructs a new HistogramBar class.
  *  @param  screen [in] pointer to the parent screen
  */
 /*===========================================================================*/
-Histogram::Histogram( kvs::ScreenBase* screen ):
+HistogramBar::HistogramBar( kvs::ScreenBase* screen ):
     kvs::WidgetBase( screen ),
     m_graph_color( kvs::RGBAColor( 0, 0, 0, 1.0f ) ),
     m_bias_parameter( 0.5f ),
@@ -67,10 +67,10 @@ Histogram::Histogram( kvs::ScreenBase* screen ):
 
 /*===========================================================================*/
 /**
- *  @brief  Destructs the Histogram class.
+ *  @brief  Destructs the HistogramBar class.
  */
 /*===========================================================================*/
-Histogram::~Histogram()
+HistogramBar::~HistogramBar()
 {
 }
 
@@ -80,7 +80,7 @@ Histogram::~Histogram()
  *  @param  volume [in] pointer to volume object
  */
 /*==========================================================================*/
-void Histogram::create( const kvs::VolumeObjectBase* volume )
+void HistogramBar::create( const kvs::VolumeObjectBase* volume )
 {
     volume->updateMinMaxValues();
     m_table.create( volume );
@@ -92,7 +92,7 @@ void Histogram::create( const kvs::VolumeObjectBase* volume )
  *  @param  image [in] pointer to image object
  */
 /*==========================================================================*/
-void Histogram::create( const kvs::ImageObject* image )
+void HistogramBar::create( const kvs::ImageObject* image )
 {
     m_table.create( image );
 }
@@ -102,7 +102,7 @@ void Histogram::create( const kvs::ImageObject* image )
  *  @brief  Draw histgram.
  */
 /*===========================================================================*/
-void Histogram::paintEvent()
+void HistogramBar::paintEvent()
 {
     this->screenUpdated();
 
@@ -144,7 +144,7 @@ void Histogram::paintEvent()
  *  @param  height [in] screen height
  */
 /*===========================================================================*/
-void Histogram::resizeEvent( int width, int height )
+void HistogramBar::resizeEvent( int width, int height )
 {
     kvs::IgnoreUnusedVariable( width );
     kvs::IgnoreUnusedVariable( height );
@@ -158,7 +158,7 @@ void Histogram::resizeEvent( int width, int height )
  *  @param  event [in] mouse event information
  */
 /*===========================================================================*/
-void Histogram::mousePressEvent( kvs::MouseEvent* event )
+void HistogramBar::mousePressEvent( kvs::MouseEvent* event )
 {
     if ( !BaseClass::isShown() ) return;
 
@@ -187,7 +187,7 @@ void Histogram::mousePressEvent( kvs::MouseEvent* event )
  *  @param  event [in] mouse event information
  */
 /*===========================================================================*/
-void Histogram::mouseMoveEvent( kvs::MouseEvent* event )
+void HistogramBar::mouseMoveEvent( kvs::MouseEvent* event )
 {
     if ( !BaseClass::isShown() ) return;
 
@@ -217,7 +217,7 @@ void Histogram::mouseMoveEvent( kvs::MouseEvent* event )
  *  @param  event [in] mouse event information
  */
 /*===========================================================================*/
-void Histogram::mouseReleaseEvent( kvs::MouseEvent* event )
+void HistogramBar::mouseReleaseEvent( kvs::MouseEvent* event )
 {
     kvs::IgnoreUnusedVariable( event );
 
@@ -238,7 +238,7 @@ void Histogram::mouseReleaseEvent( kvs::MouseEvent* event )
  *  @return adjusted width
  */
 /*===========================================================================*/
-int Histogram::adjustedWidth()
+int HistogramBar::adjustedWidth()
 {
     const size_t text_width = BaseClass::textEngine().width( m_caption );
     const size_t width = text_width + BaseClass::margin() * 2;
@@ -251,7 +251,7 @@ int Histogram::adjustedWidth()
  *  @return adjusted height
  */
 /*===========================================================================*/
-int Histogram::adjustedHeight()
+int HistogramBar::adjustedHeight()
 {
     return ::Height + BaseClass::textEngine().height() + BaseClass::margin() * 2;
 }
@@ -261,7 +261,7 @@ int Histogram::adjustedHeight()
  *  @brief  Draws frequency distribution graph.
  */
 /*==========================================================================*/
-void Histogram::draw_palette()
+void HistogramBar::draw_palette()
 {
     kvs::OpenGL::WithPushedAttrib attrib( GL_ALL_ATTRIB_BITS );
     attrib.disable( GL_TEXTURE_1D );
@@ -339,14 +339,14 @@ void Histogram::draw_palette()
  *  @brief  Returns the histogram image.
  */
 /*===========================================================================*/
-const kvs::ValueArray<kvs::UInt8> Histogram::get_histogram_image() const
+const kvs::ValueArray<kvs::UInt8> HistogramBar::get_histogram_image() const
 {
     const size_t nchannels = 4;
     const size_t width = m_table.numberOfBins();
     const size_t height = width;
     const size_t npixels = width * height;
 
-    // Histogram image data.
+    // HistogramBar image data.
     kvs::ValueArray<kvs::UInt8> data( npixels * nchannels );
     data.fill( 0 );
 
@@ -380,7 +380,7 @@ const kvs::ValueArray<kvs::UInt8> Histogram::get_histogram_image() const
 }
 
 /*
-void Histogram::calculate_density_curve()
+void HistogramBar::calculate_density_curve()
 {
     // Temporary array (biased histogram).
     const size_t width = m_table.numberOfBins();
@@ -427,7 +427,7 @@ void Histogram::calculate_density_curve()
  *  @brief  Creates the histogram texture.
  */
 /*===========================================================================*/
-void Histogram::create_texture()
+void HistogramBar::create_texture()
 {
     const size_t nchannels = 4;
     const size_t width = m_table.numberOfBins();
@@ -445,7 +445,7 @@ void Histogram::create_texture()
  *  @brief  Updates the histogram texture.
  */
 /*===========================================================================*/
-void Histogram::update_texture()
+void HistogramBar::update_texture()
 {
     this->create_texture();
 }
