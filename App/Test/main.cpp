@@ -10,6 +10,7 @@
 #include "ColorMapBar.h"
 #include "HistogramBar.h"
 #include "OrientationAxis.h"
+#include "OpacityMapBar.h"
 #include <KVS.widget/Lib/TextEngine.h>
 #include <KVS.widget/Lib/Font.h>
 #include "glutTextEngine.h"
@@ -17,7 +18,6 @@
 #include <kvs/StructuredVolumeObject>
 #include <kvs/HydrogenVolumeData>
 #include <kvs/RayCastingRenderer>
-
 
 
 int main( int argc, char** argv )
@@ -167,6 +167,13 @@ int main( int argc, char** argv )
     orientation_axis.setMargin( 10 );
     orientation_axis.setX( label.x() + label.width() );
     orientation_axis.show();
+
+    kvs::OpacityMapBar opacitymap( &screen );
+    opacitymap.setMargin( 10 );
+    opacitymap.setCaption( "Opacitymap" );
+    opacitymap.setX( orientation_axis.x() );
+    opacitymap.setY( orientation_axis.y() + orientation_axis.height() );
+    opacitymap.show();
 
     return app.run();
 }
