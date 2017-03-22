@@ -1,6 +1,19 @@
+/*****************************************************************************/
+/**
+ *  @file   OpacityMapBar.h
+ *  @author Naohisa Sakamoto
+ */
+/*----------------------------------------------------------------------------
+ *
+ *  Copyright (c) Visualization Laboratory, Kyoto University.
+ *  All rights reserved.
+ *  See http://www.viz.media.kyoto-u.ac.jp/kvs/copyright/ for details.
+ *
+ *  $Id$
+ */
+/*****************************************************************************/
 #pragma once
 #include <string>
-//#include <kvs/ColorMap>
 #include <kvs/OpacityMap>
 #include <kvs/RGBColor>
 #include <kvs/Texture2D>

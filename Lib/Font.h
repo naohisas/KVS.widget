@@ -1,3 +1,17 @@
+/*****************************************************************************/
+/**
+ *  @file   Font.h
+ *  @author Naohisa Sakamoto
+ */
+/*----------------------------------------------------------------------------
+ *
+ *  Copyright (c) Visualization Laboratory, Kyoto University.
+ *  All rights reserved.
+ *  See http://www.viz.media.kyoto-u.ac.jp/kvs/copyright/ for details.
+ *
+ *  $Id$
+ */
+/*****************************************************************************/
 #pragma once
 #include <string>
 #include <kvs/Vector2>
@@ -7,21 +21,26 @@
 namespace kvs
 {
 
+/*===========================================================================*/
+/**
+ *  @brief  Font class
+ */
+/*===========================================================================*/
 class Font
 {
 public:
     enum Family
     {
-        Sans = 0,
-        Serif,
+        Sans = 0, ///< Sans font
+        Serif,    ///< Sans-Serif font
     };
 
     enum Style
     {
-        Regular = 0,
-        Italic,
-        Bold,
-        BoldItalic,
+        Regular = 0, ///< regular style
+        Italic,      ///< italic
+        Bold,        ///< bold
+        BoldItalic,  ///< bold italic
     };
 
     enum HorizontalAlign
@@ -49,18 +68,18 @@ public:
     };
 
 private:
-    Family m_family;
-    Style m_style;
-    HorizontalAlign m_horizontal_align;
-    VerticalAlign m_vertical_align;
-    float m_size;
-    kvs::RGBAColor m_color;
-    bool m_enabled_shadow;
-    kvs::RGBAColor m_shadow_color;
-    float m_shadow_size_ratio;
-    float m_shadow_distance;
-    float m_shadow_angle; // deg
-    float m_shadow_blur;
+    Family m_family; ///< font family
+    Style m_style; ///< font style
+    HorizontalAlign m_horizontal_align; ///< horizontal alignment
+    VerticalAlign m_vertical_align; ///< vertical alignment
+    float m_size; ///< font size
+    kvs::RGBAColor m_color; ///< font color
+    bool m_enabled_shadow; ///< flag for shadowing
+    kvs::RGBAColor m_shadow_color; ///< shadow color
+    float m_shadow_size_ratio; ///< shadow size
+    float m_shadow_distance; ///< shadow distance
+    float m_shadow_angle; ///< shadow angle [deg]
+    float m_shadow_blur; ///< shadow blur level
 
 public:
     static void AddSearchPath( const std::string& path );

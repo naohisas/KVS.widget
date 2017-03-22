@@ -2,7 +2,6 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-//#define FONTSTASH_IMPLEMENTATION
 #include <KVS.nanovg/Lib/fontstash.h>
 #include <kvs/OpenGL>
 #define GLFONTSTASH_IMPLEMENTATION
@@ -16,11 +15,25 @@
 namespace
 {
 
+std::string KVSFontPath()
+{
+    const std::string sep = kvs::File::Separator();
+    const char* kvs_dir = std::getenv("KVS_DIR");
+    if ( kvs_dir != NULL )
+    {
+        std::string path = std::string( kvs_dir ) + sep;
+        path += "font" + sep;
+        return path;
+    }
+
+    return "";
+}
+
 class SearchPath
 {
 private:
 
-    std::vector<std::string> m_search_path_list;
+    std::vector<std::string> m_search_path_list; ///< search path list
 
 public:
 
@@ -31,16 +44,15 @@ public:
 
     void init()
     {
-/*
-        // Add "$KVS_DIR/include/Core/Visualization/Shader".
-        const std::string kvs_shader_path = KVSShaderPath();
+        // Add font directory ("$KVS_DIR/font/").
+        const std::string kvs_shader_path = KVSFontPath();
         if ( !kvs_shader_path.empty() )
         {
             m_search_path_list.push_back( kvs_shader_path );
         }
-*/
+
+        // Add current directory (".").
         const std::string sep = kvs::File::Separator();
-//        m_search_path_list.push_back("Font" + sep );
         m_search_path_list.push_back("." + sep );
     }
 
@@ -96,27 +108,11 @@ public:
         this->addFont( "SansRegular", "NotoSans-Regular.ttf" );
         this->addFont( "SansItalic", "NotoSans-Italic.ttf" );
         this->addFont( "SansBold", "NotoSans-Bold.ttf" );
-        this->addFont( "SansBoldItalic", "NotoSansUI-BoldItalic.ttf" );
-/*
-        this->addFont( "SansRegular", "NotoSans-Regular.ttf" );
-        this->addFont( "SansItalic", "NotoSans-Italic.ttf" );
-        this->addFont( "SansBold", "NotoSans-Bold.ttf" );
         this->addFont( "SansBoldItalic", "NotoSans-BoldItalic.ttf" );
-*/
         this->addFont( "SerifRegular", "NotoSerif-Regular.ttf" );
         this->addFont( "SerifItalic", "NotoSerif-Italic.ttf" );
         this->addFont( "SerifBold", "NotoSerif-Bold.ttf" );
         this->addFont( "SerifBoldItalic", "NotoSerif-BoldItalic.ttf" );
-/*
-        this->addFont( "SansRegular", "OpenSans-Regular.ttf" );
-        this->addFont( "SansItalic", "OpenSans-Italic.ttf" );
-        this->addFont( "SansBold", "OpenSans-Bold.ttf" );
-        this->addFont( "SansBoldItalic", "OpenSans-BoldItalic.ttf" );
-        this->addFont( "SerifRegular", "DroidSerif-Regular.ttf" );
-        this->addFont( "SerifItalic", "DroidSerif-Italic.ttf" );
-        this->addFont( "SerifBold", "DroidSerif-Bold.ttf" );
-        this->addFont( "SerifBoldItalic", "DroidSerif-BoldItalic.ttf" );
-*/
         this->addFont( "Icon", "entypo.ttf" );
     }
 
