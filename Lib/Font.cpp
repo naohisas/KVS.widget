@@ -25,7 +25,10 @@ std::string KVSFontPath()
     if ( kvs_dir != NULL )
     {
         std::string path = std::string( kvs_dir ) + sep;
-        path += "font" + sep;
+        path += "include" + sep;
+        path += "Core" + sep;
+        path += "Visualization" + sep;
+        path += "Font" + sep;
         return path;
     }
 
@@ -47,7 +50,7 @@ public:
 
     void init()
     {
-        // Add font directory ("$KVS_DIR/font/").
+        // Add font directory ("$KVS_DIR/include/Core/Visualization/Font").
         const std::string kvs_shader_path = KVSFontPath();
         if ( !kvs_shader_path.empty() )
         {
