@@ -15,7 +15,7 @@
 #pragma once
 #include <string>
 #include <kvs/ScreenBase>
-#include <KVS.widget/Lib/WidgetBase.h>
+#include <kvs/WidgetBase>
 
 
 namespace kvs

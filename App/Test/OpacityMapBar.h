@@ -18,7 +18,7 @@
 #include <kvs/RGBColor>
 #include <kvs/Texture2D>
 #include <kvs/ScreenBase>
-#include <KVS.widget/Lib/WidgetBase.h>
+#include <kvs/WidgetBase>
 
 
 namespace kvs

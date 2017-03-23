@@ -16,7 +16,7 @@
 #include <list>
 #include <kvs/IgnoreUnusedVariable>
 #include <kvs/ScreenBase>
-#include <KVS.widget/Lib/WidgetBase.h>
+#include <kvs/WidgetBase>
 #include "CheckBox.h"
 
 

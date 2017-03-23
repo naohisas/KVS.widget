@@ -13,7 +13,7 @@
  */
 /*****************************************************************************/
 #pragma once
-#include <KVS.widget/Lib/TextEngine.h>
+#include <kvs/TextEngine>
 #include <kvs/Vector2>
 #include <kvs/Vector3>
 #include <string>

@@ -11,8 +11,8 @@
 #include "HistogramBar.h"
 #include "OrientationAxis.h"
 #include "OpacityMapBar.h"
-#include <KVS.widget/Lib/TextEngine.h>
-#include <KVS.widget/Lib/Font.h>
+#include <kvs/TextEngine>
+#include <kvs/Font>
 #include "glutTextEngine.h"
 #include "qtTextEngine.h"
 #include <kvs/StructuredVolumeObject>

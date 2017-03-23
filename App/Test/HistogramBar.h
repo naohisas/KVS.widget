@@ -20,7 +20,7 @@
 #include <kvs/Texture2D>
 #include <kvs/Vector2>
 #include <kvs/ScreenBase>
-#include <KVS.widget/Lib/WidgetBase.h>
+#include <kvs/WidgetBase>
 
 
 namespace kvs
