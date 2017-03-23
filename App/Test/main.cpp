@@ -1,16 +1,16 @@
 #include "Application.h"
 #include "Screen.h"
-#include "Label.h"
-#include "PushButton.h"
-#include "Slider.h"
-#include "CheckBox.h"
-#include "CheckBoxGroup.h"
-#include "RadioButton.h"
-#include "RadioButtonGroup.h"
-#include "ColorMapBar.h"
-#include "HistogramBar.h"
-#include "OrientationAxis.h"
-#include "OpacityMapBar.h"
+#include <kvs/Label>
+#include <kvs/PushButton>
+#include <kvs/Slider>
+#include <kvs/CheckBox>
+#include <kvs/CheckBoxGroup>
+#include <kvs/RadioButton>
+#include <kvs/RadioButtonGroup>
+#include <kvs/ColorMapBar>
+#include <kvs/HistogramBar>
+#include <kvs/OrientationAxis>
+#include <kvs/OpacityMapBar>
 #include <kvs/TextEngine>
 #include <kvs/Font>
 #include "glutTextEngine.h"
@@ -22,8 +22,8 @@
 
 int main( int argc, char** argv )
 {
-    kvs::Font::AddSearchPath("../../Lib/Font");
-    kvs::Font::AddSearchPath("../../../../../Lib/Font"); // for Qt
+//    kvs::Font::AddSearchPath("../../Lib/Font");
+//    kvs::Font::AddSearchPath("../../../../../Lib/Font"); // for Qt
 
     Application app( argc, argv );
     Screen screen( &app );
