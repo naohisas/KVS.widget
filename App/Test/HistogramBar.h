@@ -47,8 +47,6 @@ private:
     float m_bias_parameter; ///< bias parameter
     kvs::Texture2D m_texture; ///< histogram texture
     kvs::WidgetBase m_palette; ///< palette
-    kvs::RGBColor m_upper_edge_color; ///< upper edge color
-    kvs::RGBColor m_lower_edge_color; ///< lower edge color
     kvs::Vector2i m_previous_position; ///< mouse previous position
 
 public:

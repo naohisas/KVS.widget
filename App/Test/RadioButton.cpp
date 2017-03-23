@@ -26,12 +26,11 @@
 // Default parameters.
 namespace { namespace Default
 {
-const int           TextMargin = 10;
-const int           CircleMargin = 0;
-const int           CircleWidth = 15;
-const int           CircleHeight = 15;
+const int TextMargin = 10;
+const int CircleMargin = 0;
+const int CircleWidth = 15;
+const int CircleHeight = 15;
 const kvs::RGBColor CircleColor = kvs::RGBColor( 200, 200, 200 );
-const kvs::RGBColor CircleEdgeColor = kvs::RGBColor( 230, 230, 230 );
 } }
 
 // Instance counter.
@@ -60,9 +59,6 @@ RadioButton::RadioButton( kvs::ScreenBase* screen ):
     BaseClass::setMargin( ::Default::CircleMargin );
     this->setCaption( "RadioButton " + kvs::String::ToString( ::InstanceCounter++ ) );
     this->setState( false );
-
-    m_upper_edge_color = BaseClass::darkenedColor( ::Default::CircleColor, 0.6f );
-    m_lower_edge_color = ::Default::CircleEdgeColor;
 }
 
 /*===========================================================================*/

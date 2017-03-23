@@ -74,9 +74,6 @@ HistogramBar::HistogramBar( kvs::ScreenBase* screen ):
     BaseClass::setMargin( ::Margin );
     this->setCaption( "Histogram " + kvs::String::ToString( ::InstanceCounter++ ) );
     this->setNumberOfBins( 256 );
-
-    m_upper_edge_color = BaseClass::darkenedColor( ::RectColor, 0.6f );
-    m_lower_edge_color = ::RectEdgeColor;
 }
 
 /*===========================================================================*/
