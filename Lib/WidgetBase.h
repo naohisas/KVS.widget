@@ -4,7 +4,7 @@
 #include <kvs/EventListener>
 #include <kvs/Rectangle>
 #include <kvs/OpenGL>
-#include <KVS.nanovg/Lib/NanoVG.h>
+#include <kvs/NanoVG>
 #include "TextEngine.h"
 
 

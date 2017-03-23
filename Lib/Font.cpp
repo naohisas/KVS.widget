@@ -1,11 +1,14 @@
 #include "Font.h"
+// NanoVG related headers
+// {
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <KVS.nanovg/Lib/fontstash.h>
+#include <Core/NanoVG/fontstash.h>
 #include <kvs/OpenGL>
 #define GLFONTSTASH_IMPLEMENTATION
-#include <KVS.nanovg/Lib/glfontstash.h>
+#include <Core/NanoVG/glfontstash.h>
+// }
 #include <string>
 #include <vector>
 #include <kvs/File>
