@@ -33,7 +33,8 @@ int main( int argc, char** argv )
 //    screen.setBackgroundColor( kvs::RGBColor( 192, 202, 209 ), kvs::RGBColor( 212, 221, 229 ) );
 //    screen.setBackgroundColor( kvs::RGBColor::Black() );
 //    screen.setBackgroundColor( kvs::RGBColor( 212, 221, 229 ), kvs::RGBColor( 150, 150, 150 ) );
-    screen.show();
+//    screen.show();
+    screen.create();
 
     kvs::StructuredVolumeObject*  object = new kvs::HydrogenVolumeData( kvs::Vector3ui( 32, 32, 32 ) );
     kvs::glsl::RayCastingRenderer* renderer = new kvs::glsl::RayCastingRenderer();
@@ -49,7 +50,7 @@ int main( int argc, char** argv )
 //    font.setShadowColor( kvs::RGBColor::White() );
     font.setShadowSizeRatio( 1.0f );
     font.setShadowBlur( 6.0f );
-    kvs::TextEngine engine( font );
+//    kvs::TextEngine engine( font );
 
     // GLUT
 //    void* font = GLUT_BITMAP_8_BY_13;
@@ -69,7 +70,8 @@ int main( int argc, char** argv )
 
     kvs::Label label( &screen );
 //    label.setBackgroundColor( kvs::RGBAColor( 0,0,0,0.2 ) );
-    label.setTextEngine( engine );
+//    label.setTextEngine( engine );
+    label.setFont( font );
     label.setMargin( 10 );
     label.setX(0);
     label.setY(0);
@@ -174,6 +176,8 @@ int main( int argc, char** argv )
     opacitymap.setX( orientation_axis.x() );
     opacitymap.setY( orientation_axis.y() + orientation_axis.height() );
     opacitymap.show();
+
+    screen.show();
 
     return app.run();
 }
