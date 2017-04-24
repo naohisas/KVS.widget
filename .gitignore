@@ -33,3 +33,7 @@
 *.stash
 
 App/Test/Test
+
+App/Axis2D/Axis2D
+
+App/Axis3D/Axis3D
