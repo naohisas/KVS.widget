@@ -83,18 +83,14 @@ void Axis2D::exec( kvs::ObjectBase* object, kvs::Camera* camera, kvs::Light* lig
         // Draw labels.
         const std::string x_label( table->label(0) );
         const std::string y_label( table->label(1) );
-//        const size_t x_label_width = x_label.size() * ::CharacterWidth;
         const size_t x_label_width = metrics.width( x_label );
 
         const float x_label_position_x = x1 - x_label_width - 5;
         const float x_label_position_y = y1 - m_axis_width * 0.5f - 5;
-//        ::DrawString( x_label, x_label_position_x, x_label_position_y, m_label_color );
         m_painter.drawText( kvs::Vec2( x_label_position_x, x_label_position_y ), x_label );
 
         const float y_label_position_x = x0 + m_axis_width * 0.5f + 5;
-//        const float y_label_position_y = y0 + ::CharacterWidth + 5;
         const float y_label_position_y = y0 + metrics.height() + 5;
-//        ::DrawString( y_label, y_label_position_x, y_label_position_y, m_label_color );
         m_painter.drawText( kvs::Vec2( y_label_position_x, y_label_position_y ), y_label );
     }
     m_painter.end();
