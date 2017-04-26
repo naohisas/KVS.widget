@@ -11,9 +11,9 @@
 #include <kvs/MouseReleaseEventListener>
 #include <kvs/PushButton>
 #include <kvs/HistogramBar>
-#include "ColorPalette.h"
-#include "ColorMapPalette.h"
-#include "OpacityMapPalette.h"
+#include <kvs/ColorPalette>
+#include <kvs/ColorMapPalette>
+#include <kvs/OpacityMapPalette>
 #include <kvs/glut/Screen>
 
 
